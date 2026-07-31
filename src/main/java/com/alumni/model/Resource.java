@@ -1,4 +1,4 @@
 package com.alumni.model;
 
-public class Resources {
+public class Resource {
 }
