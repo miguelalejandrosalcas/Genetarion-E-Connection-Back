@@ -5,7 +5,7 @@ import com.alumni.model.Administrator;
 import java.time.LocalDateTime;
 
 public class AdministratorDTO {
-    private int id;
+    private long id;
     private String name;
     private String email;
     private String passwordHash;
@@ -17,21 +17,21 @@ public class AdministratorDTO {
 
     }
 
-    public AdministratorDTO (int idAdmin, String nombre, String correo, String contrasenaHash, String roll, int activo, LocalDateTime creacionAdmin) {
-        this.id = idAdmin;
-        this.name = nombre;
-        this.email = correo;
-        this.passwordHash = contrasenaHash;
-        this.role = roll;
-        this.active = activo;
-        this.createdAt = creacionAdmin;
+    public AdministratorDTO (long id, String name, String email, String passwordHash, String role, int active, LocalDateTime createdAt) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.role = role;
+        this.active = active;
+        this.createdAt = createdAt;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

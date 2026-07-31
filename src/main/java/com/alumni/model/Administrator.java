@@ -12,7 +12,7 @@ public class Administrator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(nullable = false)
     private String name;
@@ -20,7 +20,7 @@ public class Administrator {
     @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
     @Column(nullable = false)
@@ -29,30 +29,30 @@ public class Administrator {
     @Column(nullable = false)
     private int active;
 
-    @Column(nullable = false)
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "administrator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 
-    private List<Resource> recursos = new ArrayList<>();
+    private List<Resource> resources = new ArrayList<>();
 
     public Administrator () {
     }
 
-    public Administrator (String nombre, String correo, String contrasenaHash, String roll, int activo, LocalDateTime creacionAdmin) {
-        this.name = nombre;
-        this.email = correo;
-        this.passwordHash = contrasenaHash;
-        this.role = roll;
-        this.active = activo;
-        this.createdAt = creacionAdmin;
+    public Administrator (String name, String email, String passwordHash, String role, int active, LocalDateTime createdAt) {
+        this.name = name;
+        this.email = email;
+        this.passwordHash = passwordHash;
+        this.role = role;
+        this.active = active;
+        this.createdAt = createdAt;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -104,12 +104,12 @@ public class Administrator {
         this.createdAt = createdAt;
     }
 
-    public List<Resource> getRecursos() {
-        return recursos;
+    public List<Resource> getResources() {
+        return resources;
     }
 
-    public void setRecursos(List<Resource> recursos) {
-        this.recursos = recursos;
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
     }
 }
 
