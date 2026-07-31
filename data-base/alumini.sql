@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS alumini;
-CREATE DATABASE alumini;
-USE alumini;
+DROP DATABASE IF EXISTS alumni;
+CREATE DATABASE alumni;
+USE alumni;
 
 CREATE TABLE administrators (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -110,7 +110,7 @@ CREATE TABLE uploaded_files (
 -- inserts
 
 
-USE alumini;
+USE alumni;
 
 INSERT IGNORE INTO administrators (name, email, password_hash, role, active) VALUES
 ('Camila Torres',     'camila.torres@generation.org',     '$2a$10$N9qo8uLOickgx2ZMRZoMy.example1hash', 'admin',  1),
