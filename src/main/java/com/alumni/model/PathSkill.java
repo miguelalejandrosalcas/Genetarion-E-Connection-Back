@@ -39,7 +39,6 @@ public class PathSkill {
         this.description = description;
     }
 
-
     public long getId() {
         return id;
     }
