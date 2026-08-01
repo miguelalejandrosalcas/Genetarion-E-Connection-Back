@@ -13,6 +13,7 @@ public class UploadedFile {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "administrator_id", nullable = false)
     private Administrator administrator;
 
     @Column(name = "filename")
