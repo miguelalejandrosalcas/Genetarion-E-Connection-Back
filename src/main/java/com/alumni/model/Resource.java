@@ -1,11 +1,10 @@
 package com.alumni.model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "resources")
@@ -13,67 +12,69 @@ public class Resource {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private long id;
 
-    @Column(nullable = false, length = 200)
-    private String title;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "type_id", nullable = false)
+    private ResourceType resourceType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by", nullable = false)
+    private Administrator administrator;
+
+    @Column(nullable = false)
+    private String tittle;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @Column(nullable = false)
+    private Enum section;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "type_id")
-    private ResourceType type;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "ENUM('library','recording') DEFAULT 'library'")
-    private Section section = Section.library;
-
-    @Column(nullable = false, length = 1000)
+    @Column(nullable = false)
     private String url;
 
-    @Column(name = "duration_minutes")
-    private Integer durationMinutes;
+    @Column(name = "duration_minutes",nullable = false)
+    private int durationMinutes;
 
     @Column(name = "publication_date", nullable = false)
-    private LocalDate publicationDate = LocalDate.now();
+    private LocalDate publicationDate;
 
     @Column(nullable = false)
-    private Boolean featured = false;
+    private boolean featured;
 
     @Column(nullable = false)
-    private Boolean active = true;
+    private boolean active;
 
     @Column(nullable = false)
-    private Integer views = 0;
+    private int views;
 
     @Column(nullable = false)
-    private Integer downloads = 0;
+    private int downloads;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by")
-    private Administrator createdBy;
-
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
     public Resource() {
+
     }
 
-    public Resource(String title, String description, Category category, ResourceType type, Section section, String url, Integer durationMinutes, LocalDate publicationDate, Boolean featured, Boolean active, Integer views, Integer downloads, Administrator createdBy, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.title = title;
-        this.description = description;
+    public Resource( Category category, ResourceType resourceType, Administrator administrator,
+                     String tittle, String description, Enum section, String url, int durationMinutes,
+                     LocalDate publicationDate, boolean featured, boolean active, int views, int downloads,
+                     LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.category = category;
-        this.type = type;
+        this.resourceType = resourceType;
+        this.administrator = administrator;
+        this.tittle = tittle;
+        this.description = description;
         this.section = section;
         this.url = url;
         this.durationMinutes = durationMinutes;
@@ -82,33 +83,16 @@ public class Resource {
         this.active = active;
         this.views = views;
         this.downloads = downloads;
-        this.createdBy = createdBy;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(long id) {
         this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Category getCategory() {
@@ -119,19 +103,43 @@ public class Resource {
         this.category = category;
     }
 
-    public ResourceType getType() {
-        return type;
+    public ResourceType getResourceType() {
+        return resourceType;
     }
 
-    public void setType(ResourceType type) {
-        this.type = type;
+    public void setResourceType(ResourceType resourceType) {
+        this.resourceType = resourceType;
     }
 
-    public Section getSection() {
+    public Administrator getAdministrator() {
+        return administrator;
+    }
+
+    public void setAdministrator(Administrator administrator) {
+        this.administrator = administrator;
+    }
+
+    public String getTittle() {
+        return tittle;
+    }
+
+    public void setTittle(String tittle) {
+        this.tittle = tittle;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Enum getSection() {
         return section;
     }
 
-    public void setSection(Section section) {
+    public void setSection(Enum section) {
         this.section = section;
     }
 
@@ -143,11 +151,11 @@ public class Resource {
         this.url = url;
     }
 
-    public Integer getDurationMinutes() {
+    public int getDurationMinutes() {
         return durationMinutes;
     }
 
-    public void setDurationMinutes(Integer durationMinutes) {
+    public void setDurationMinutes(int durationMinutes) {
         this.durationMinutes = durationMinutes;
     }
 
@@ -159,44 +167,36 @@ public class Resource {
         this.publicationDate = publicationDate;
     }
 
-    public Boolean getFeatured() {
+    public boolean isFeatured() {
         return featured;
     }
 
-    public void setFeatured(Boolean featured) {
+    public void setFeatured(boolean featured) {
         this.featured = featured;
     }
 
-    public Boolean getActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
-    public Integer getViews() {
+    public int getViews() {
         return views;
     }
 
-    public void setViews(Integer views) {
+    public void setViews(int views) {
         this.views = views;
     }
 
-    public Integer getDownloads() {
+    public int getDownloads() {
         return downloads;
     }
 
-    public void setDownloads(Integer downloads) {
+    public void setDownloads(int downloads) {
         this.downloads = downloads;
-    }
-
-    public Administrator getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(Administrator createdBy) {
-        this.createdBy = createdBy;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -214,10 +214,4 @@ public class Resource {
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
-
-    public enum Section {
-        library, recording
-    }
-
-
 }

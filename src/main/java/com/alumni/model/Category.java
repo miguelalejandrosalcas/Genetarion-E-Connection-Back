@@ -1,55 +1,38 @@
 package com.alumni.model;
 
 import jakarta.persistence.*;
-<<<<<<< HEAD
-
-@Entity
-@Table(name="resource_type")
-=======
-import org.hibernate.annotations.Fetch;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "resource_types")
->>>>>>> faaa8ee636e409f94037157e6ce65f6287003df4
-public class ResourceType {
+@Table(name = "categories")
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<<<<<<< HEAD
     private Long id;
-=======
-    private long id;
->>>>>>> faaa8ee636e409f94037157e6ce65f6287003df4
 
     @Column(nullable = false)
     private String name;
 
-<<<<<<< HEAD
-    public ResourceType() {
-    }
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
-    public ResourceType(String name) {
-        this.name = name;
-    }
+    @Column(nullable = false)
+    private boolean active;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-=======
     @OneToMany(mappedBy = "resource", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Resource> resources = new ArrayList<>();
 
-    public ResourceType() {
-
+    public Category(){
     }
 
-    public ResourceType(String name, List<Resource> resources) {
+    public Category(String name, String description,
+                    boolean active, List<Resource> resources) {
         this.name = name;
+        this.description = description;
+        this.active = active;
         this.resources = resources;
     }
 
@@ -58,7 +41,6 @@ public class ResourceType {
     }
 
     public void setId(long id) {
->>>>>>> faaa8ee636e409f94037157e6ce65f6287003df4
         this.id = id;
     }
 
@@ -69,8 +51,22 @@ public class ResourceType {
     public void setName(String name) {
         this.name = name;
     }
-<<<<<<< HEAD
-=======
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
     public List<Resource> getResources() {
         return resources;
@@ -79,5 +75,4 @@ public class ResourceType {
     public void setResources(List<Resource> resources) {
         this.resources = resources;
     }
->>>>>>> faaa8ee636e409f94037157e6ce65f6287003df4
 }
