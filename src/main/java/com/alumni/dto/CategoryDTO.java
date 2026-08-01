@@ -1,6 +1,7 @@
 package com.alumni.dto;
 
 import com.alumni.model.Category;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 public class CategoryDTO {
     private Long id;
@@ -8,10 +9,12 @@ public class CategoryDTO {
     private String description;
     private boolean active;
 
-    public CategoryDTO(Long id, String name, String description, boolean active){
+    @JsonCreator
+    public CategoryDTO() {
     }
 
-    public CategoryDTO(String name, String description, boolean active){
+    public CategoryDTO(Long id, String name, String description, boolean active) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.active = active;
@@ -49,7 +52,7 @@ public class CategoryDTO {
         this.active = active;
     }
 
-   public static CategoryDTO fromEntity(Category category){
+    public static CategoryDTO fromEntity(Category category) {
         return new CategoryDTO(
                 category.getId(),
                 category.getName(),
@@ -58,7 +61,7 @@ public class CategoryDTO {
         );
     }
 
-    public Category toEntity(){
-        return new Category(this.name,this.description, this.active);
+    public Category toEntity() {
+        return new Category(this.name, this.description, this.active);
     }
 }

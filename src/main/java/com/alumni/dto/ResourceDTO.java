@@ -2,6 +2,7 @@ package com.alumni.dto;
 
 import com.alumni.enums.Section;
 import com.alumni.model.Resource;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -24,6 +25,7 @@ public class ResourceDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    @JsonCreator
     public ResourceDTO() {
     }
 

@@ -1,4 +1,176 @@
 package com.alumni.service;
 
+import com.alumni.dto.ResourceDTO;
+import com.alumni.enums.Section;
+import com.alumni.model.Administrator;
+import com.alumni.model.Category;
+import com.alumni.model.Resource;
+import com.alumni.model.ResourceType;
+import com.alumni.repository.AdministratorRepository;
+import com.alumni.repository.CategoryRepository;
+import com.alumni.repository.ResourceRepository;
+import com.alumni.repository.ResourceTypeRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
 public class ResourcesService {
+
+    private final ResourceRepository resourceRepository;
+    private final CategoryRepository categoryRepository;
+    private final ResourceTypeRepository resourceTypeRepository;
+    private final AdministratorRepository administratorRepository;
+
+    public ResourcesService(ResourceRepository resourceRepository,
+                            CategoryRepository categoryRepository,
+                            ResourceTypeRepository resourceTypeRepository,
+                            AdministratorRepository administratorRepository) {
+        this.resourceRepository = resourceRepository;
+        this.categoryRepository = categoryRepository;
+        this.resourceTypeRepository = resourceTypeRepository;
+        this.administratorRepository = administratorRepository;
+    }
+
+    public List<ResourceDTO> getAll() {
+        return toDtoList(resourceRepository.findAll());
+    }
+
+    public List<ResourceDTO> getAllActive() {
+        return toDtoList(resourceRepository.findByActiveTrue());
+    }
+
+    public ResourceDTO getById(long id) {
+        return ResourceDTO.fromEntity(findEntityOrThrow(id));
+    }
+
+    public List<ResourceDTO> getBySection(String sectionParam) {
+        Section section = parseSection(sectionParam);
+        return toDtoList(resourceRepository.findBySectionAndActiveTrue(section));
+    }
+
+    public List<ResourceDTO> getByCategory(Long categoryId) {
+        return toDtoList(resourceRepository.findByCategory_IdAndActiveTrue(categoryId));
+    }
+
+    public List<ResourceDTO> getFeatured() {
+        return toDtoList(resourceRepository.findByFeaturedTrueAndActiveTrue());
+    }
+
+    public List<ResourceDTO> search(String query) {
+        return toDtoList(resourceRepository.findByTitleContainingIgnoreCaseAndActiveTrue(query));
+    }
+
+    public ResourceDTO create(ResourceDTO dto) {
+        if (dto.getTitle() == null || dto.getTitle().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El título es obligatorio");
+        }
+        if (dto.getUrl() == null || dto.getUrl().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La URL es obligatoria");
+        }
+        if (dto.getSection() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "La sección es obligatoria (library o recording)");
+        }
+
+        Resource resource = new Resource();
+        resource.setTitle(dto.getTitle());
+        resource.setDescription(dto.getDescription());
+        resource.setSection(dto.getSection());
+        resource.setUrl(dto.getUrl());
+        resource.setDurationMinutes(dto.getDurationMinutes());
+        resource.setPublicationDate(dto.getPublicationDate() != null ? dto.getPublicationDate() : LocalDate.now());
+        resource.setFeatured(dto.isFeatured());
+        resource.setActive(true);
+        resource.setViews(0);
+        resource.setDownloads(0);
+        resource.setCreatedAt(LocalDateTime.now());
+        resource.setUpdatedAt(LocalDateTime.now());
+
+        applyRelations(resource, dto);
+
+        return ResourceDTO.fromEntity(resourceRepository.save(resource));
+    }
+
+    public ResourceDTO update(long id, ResourceDTO dto) {
+        Resource resource = findEntityOrThrow(id);
+
+        if (dto.getTitle() != null) resource.setTitle(dto.getTitle());
+        if (dto.getDescription() != null) resource.setDescription(dto.getDescription());
+        if (dto.getSection() != null) resource.setSection(dto.getSection());
+        if (dto.getUrl() != null) resource.setUrl(dto.getUrl());
+        if (dto.getPublicationDate() != null) resource.setPublicationDate(dto.getPublicationDate());
+        resource.setDurationMinutes(dto.getDurationMinutes());
+        resource.setFeatured(dto.isFeatured());
+        resource.setActive(dto.isActive());
+
+        applyRelations(resource, dto);
+
+        resource.setUpdatedAt(LocalDateTime.now());
+
+        return ResourceDTO.fromEntity(resourceRepository.save(resource));
+    }
+
+    public void delete(long id) {
+        resourceRepository.delete(findEntityOrThrow(id));
+    }
+
+    public ResourceDTO registerView(long id) {
+        Resource resource = findEntityOrThrow(id);
+        resource.setViews(resource.getViews() + 1);
+        return ResourceDTO.fromEntity(resourceRepository.save(resource));
+    }
+
+    public ResourceDTO registerDownload(long id) {
+        Resource resource = findEntityOrThrow(id);
+        resource.setDownloads(resource.getDownloads() + 1);
+        return ResourceDTO.fromEntity(resourceRepository.save(resource));
+    }
+
+    private void applyRelations(Resource resource, ResourceDTO dto) {
+        if (dto.getCategoryId() != null) {
+            Category category = categoryRepository.findById(dto.getCategoryId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                            "No existe una categoría con id " + dto.getCategoryId()));
+            resource.setCategory(category);
+        }
+        if (dto.getResourceTypeId() != null) {
+            ResourceType resourceType = resourceTypeRepository.findById(dto.getResourceTypeId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                            "No existe un tipo de recurso con id " + dto.getResourceTypeId()));
+            resource.setResourceType(resourceType);
+        }
+        if (dto.getAdministratorId() != null) {
+            Administrator administrator = administratorRepository.findById(dto.getAdministratorId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                            "No existe un administrador con id " + dto.getAdministratorId()));
+            resource.setAdministrator(administrator);
+        }
+    }
+
+    private Resource findEntityOrThrow(long id) {
+        return resourceRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        "No existe un recurso con id " + id));
+    }
+
+    private Section parseSection(String sectionParam) {
+        try {
+            return Section.valueOf(sectionParam.toLowerCase());
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Sección inválida: '" + sectionParam + "' (usa 'library' o 'recording')");
+        }
+    }
+
+    private List<ResourceDTO> toDtoList(List<Resource> resources) {
+        return resources.stream()
+                .map(ResourceDTO::fromEntity)
+                .collect(Collectors.toList());
+    }
 }
