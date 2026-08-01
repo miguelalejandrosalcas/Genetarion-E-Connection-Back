@@ -1,37 +1,21 @@
-package com.alumni.model;
+package com.alumni.dto;
 
-import jakarta.persistence.*;
+import com.alumni.model.JobBoard;
 
-
-@Entity
-@Table(name = "job_boards")
-public class JobBoard {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class JobBoardDTO {
     private Long id;
-
-    @Column(nullable = false)
     private String name;
-
-    @Column(nullable = false)
     private String url;
-
-    @Column(nullable = false)
     private String description;
-
-    @Column(name = "logo_url", nullable = false)
     private String logoUrl;
-
-    @Column(nullable = false)
     private boolean active;
 
-    public JobBoard(){
-
+    public JobBoardDTO() {
     }
 
-    public JobBoard(String name, String url, String description,
-                    String logoUrl, Boolean active){
+    public JobBoardDTO(Long id, String name, String url, String description,
+                       String logoUrl, boolean active) {
+        this.id = id;
         this.name = name;
         this.url = url;
         this.description = description;
@@ -50,6 +34,7 @@ public class JobBoard {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -73,11 +58,12 @@ public class JobBoard {
     public String getLogoUrl() {
         return logoUrl;
     }
+
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
     }
 
-    public boolean isActive() {
+    public boolean getActive() {
         return active;
     }
 
@@ -85,6 +71,18 @@ public class JobBoard {
         this.active = active;
     }
 
+    public static JobBoardDTO fromEntity(JobBoard jobBoard) {
+        return new JobBoardDTO(
+                jobBoard.getId(),
+                jobBoard.getName(),
+                jobBoard.getUrl(),
+                jobBoard.getDescription(),
+                jobBoard.getLogoUrl(),
+                jobBoard.isActive()
+        );
+    }
+
+    public JobBoard toEntity() {
+        return new JobBoard(this.name, this.url, this.description, this.logoUrl, this.active);
+    }
 }
-
-
