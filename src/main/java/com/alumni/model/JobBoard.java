@@ -6,23 +6,24 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "job_boards")
 public class JobBoard {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "url", nullable = false)
+    @Column(nullable = false)
     private String url;
 
-    @Column(name = "description", nullable = false)
+    @Column(nullable = false)
     private String description;
 
     @Column(name = "logo_url", nullable = false)
     private String logoUrl;
 
-    @Column(name = "active", nullable = false)
+    @Column(nullable = false)
     private boolean active;
 
     public JobBoard(){

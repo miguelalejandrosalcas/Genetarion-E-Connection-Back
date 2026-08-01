@@ -2,6 +2,9 @@ package com.alumni.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "learning_paths")
 public class LearningPath {
@@ -10,24 +13,28 @@ public class LearningPath {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(nullable = false)
     private String name;
 
-    @Column(name = "description", nullable = false)
+    @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "active", nullable = false)
-    private int active;
+    @Column(nullable = false)
+    private boolean active;
+
+    @OneToMany(mappedBy = "learningPath", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PathSkill> pathSkills = new ArrayList<>();
 
 
     public LearningPath() {
 
     }
 
-    public LearningPath(String name, String description, int active) {
+    public LearningPath(String name, String description, boolean active, List<PathSkill> pathSkills) {
         this.name = name;
         this.description = description;
         this.active = active;
+        this.pathSkills = pathSkills;
     }
 
     public Long getId() {
@@ -43,7 +50,7 @@ public class LearningPath {
     }
 
     public void setName(String name) {
-        name = name;
+        this.name = name;
     }
 
     public String getDescription() {
@@ -54,11 +61,21 @@ public class LearningPath {
         this.description = description;
     }
 
-    public int getActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(int active) {
-        active = active;
+    public void setActive(boolean active) {
+        this.active = active;
     }
+
+    public List<PathSkill> getPathSkills() {
+        return pathSkills;
+    }
+
+    public void setPathSkills(List<PathSkill> pathSkills) {
+        this.pathSkills = pathSkills;
+    }
+
+
 }

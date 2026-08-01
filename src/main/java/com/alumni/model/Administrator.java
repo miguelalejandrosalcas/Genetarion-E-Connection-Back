@@ -12,7 +12,7 @@ public class Administrator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private String name;
@@ -33,7 +33,6 @@ public class Administrator {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "administrator", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-
     private List<Resource> resources = new ArrayList<>();
 
     public Administrator () {
@@ -111,5 +110,7 @@ public class Administrator {
     public void setResources(List<Resource> resources) {
         this.resources = resources;
     }
+
+
 }
 

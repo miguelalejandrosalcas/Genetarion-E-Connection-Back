@@ -1,6 +1,6 @@
 package com.alumni.dto;
 
-import com.alumni.model.UploadedFiles;
+import com.alumni.model.UploadedFile;
 
 import java.time.LocalDateTime;
 
@@ -82,19 +82,19 @@ public class UploadedFilesDTO {
         this.createdAt = createdAt;
     }
 
-    public static UploadedFilesDTO fromEntity(UploadedFiles uploadedFiles){
+    public static UploadedFilesDTO fromEntity(UploadedFile uploadedFile){
         return new UploadedFilesDTO(
-                uploadedFiles.getId(),
-                uploadedFiles.getAdministrator(),
-                uploadedFiles.getFileName(),
-                uploadedFiles.getStorageUrl(),
-                uploadedFiles.getMimeType(),
-                uploadedFiles.getSizeBytes(),
-                uploadedFiles.getCreatedAt()
+                uploadedFile.getId(),
+                uploadedFile.getAdministrator(),
+                uploadedFile.getFileName(),
+                uploadedFile.getStorageUrl(),
+                uploadedFile.getMimeType(),
+                uploadedFile.getSizeBytes(),
+                uploadedFile.getCreatedAt()
         );
     }
 
-    public UploadedFiles toEntity(){
-        return new UploadedFiles(this.administrator,this.fileName,this.storageUrl,this.mimeType,this.sizeBytes,this.createdAt);
+    public UploadedFile toEntity(){
+        return new UploadedFile(this.administrator,this.fileName,this.storageUrl,this.mimeType,this.sizeBytes,this.createdAt);
     }
 }

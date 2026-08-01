@@ -46,21 +46,41 @@ CREATE TABLE resources (
     FOREIGN KEY (created_by) REFERENCES administrators(id) ON DELETE SET NULL
 );
 
+CREATE TABLE programs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    description TEXT
+);
+ 
+CREATE TABLE skills (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    skill_name VARCHAR(150) NOT NULL,
+    description TEXT
+);
+ 
 CREATE TABLE learning_paths (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(150) NOT NULL,
     description TEXT,
-    active TINYINT NOT NULL DEFAULT 1
+    id_programs INT NOT NULL,
+    active TINYINT NOT NULL DEFAULT 1,
+    FOREIGN KEY (id_programs) REFERENCES programs (id)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
 );
-
-CREATE TABLE path_skills (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    path_id INT NOT NULL,
-    skill_name VARCHAR(150) NOT NULL,
-    description TEXT,
-    resource_id INT,
-    FOREIGN KEY (path_id) REFERENCES learning_paths(id) ON DELETE CASCADE,
-    FOREIGN KEY (resource_id) REFERENCES resources(id) ON DELETE SET NULL
+ 
+-- Tabla intermedia: una ruta puede cubrir varias skills
+-- y una skill puede aparecer en varias rutas (relación N:M)
+CREATE TABLE learning_path_skills (
+    id_learning_paths INT NOT NULL,
+    id_skills INT NOT NULL,
+    PRIMARY KEY (id_learning_paths, id_skills),
+    FOREIGN KEY (id_learning_paths) REFERENCES learning_paths (id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (id_skills) REFERENCES skills (id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 CREATE TABLE job_boards (

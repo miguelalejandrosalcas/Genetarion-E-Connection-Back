@@ -2,6 +2,9 @@ package com.alumni.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "categories")
 public class Category {
@@ -10,29 +13,34 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String name;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column
-    private int active;
+    @Column(nullable = false)
+    private boolean active;
+
+    @OneToMany(mappedBy = "resource", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Resource> resources = new ArrayList<>();
 
     public Category(){
     }
 
-    public Category(String name, String description, int active){
+    public Category(String name, String description,
+                    boolean active, List<Resource> resources) {
         this.name = name;
         this.description = description;
         this.active = active;
+        this.resources = resources;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -52,11 +60,19 @@ public class Category {
         this.description = description;
     }
 
-    public int getActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(int active) {
+    public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public List<Resource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<Resource> resources) {
+        this.resources = resources;
     }
 }

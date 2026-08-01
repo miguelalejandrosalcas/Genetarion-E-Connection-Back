@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "uploaded_files")
-public class UploadedFiles {
+public class UploadedFile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,10 +30,10 @@ public class UploadedFiles {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    public UploadedFiles(){
+    public UploadedFile(){
     }
 
-    public UploadedFiles(Administrator administrator, String fileName, String storageUrl, String mimeType, Long sizeBytes, LocalDateTime createdAt){
+    public UploadedFile(Administrator administrator, String fileName, String storageUrl, String mimeType, Long sizeBytes, LocalDateTime createdAt){
         this.administrator = administrator;
         this.fileName = fileName;
         this.storageUrl = storageUrl;
