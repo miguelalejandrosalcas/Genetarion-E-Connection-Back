@@ -48,7 +48,6 @@ public class ProgramDTO {
         );
     }
 
-    // Program solo tiene constructor vacio, así que se arma con setters
     public Program toEntity() {
         Program program = new Program();
         program.setName(this.name);

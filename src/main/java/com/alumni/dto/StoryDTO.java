@@ -140,8 +140,6 @@ public class StoryDTO {
         );
     }
 
-    // Story solo tiene constructor vacio disponible sin la entidad Administrator ya resuelta;
-    // el administrator se asigna en el service buscando por administratorId
     public Story toEntity() {
         Story story = new Story();
         story.setAlumniName(this.alumniName);

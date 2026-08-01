@@ -199,8 +199,6 @@ public class ResourceDTO {
         );
     }
 
-    // category, resourceType y administrator se asignan en el service
-    // buscando las entidades por su id con los repositorios correspondientes
     public Resource toEntity() {
         Resource resource = new Resource();
         resource.setTitle(this.title);

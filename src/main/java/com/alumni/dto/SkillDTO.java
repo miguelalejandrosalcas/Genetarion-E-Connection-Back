@@ -48,7 +48,6 @@ public class SkillDTO {
         );
     }
 
-    // Skill solo tiene constructor vacio, así que se arma con setters
     public Skill toEntity() {
         Skill skill = new Skill();
         skill.setSkillName(this.skillName);

@@ -74,7 +74,6 @@ public class InteractionDTO {
         );
     }
 
-    // El resource se asigna en el service buscando por resourceId
     public Interaction toEntity() {
         Interaction interaction = new Interaction();
         interaction.setEventType(this.eventType);

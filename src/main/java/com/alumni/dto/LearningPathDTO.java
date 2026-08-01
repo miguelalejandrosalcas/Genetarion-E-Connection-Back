@@ -89,8 +89,6 @@ public class LearningPathDTO {
         );
     }
 
-    // LearningPath solo tiene constructor vacio; program y skills se asignan
-    // en el service (buscando las entidades por id con sus repositorios)
     public LearningPath toEntity() {
         LearningPath learningPath = new LearningPath();
         learningPath.setName(this.name);
