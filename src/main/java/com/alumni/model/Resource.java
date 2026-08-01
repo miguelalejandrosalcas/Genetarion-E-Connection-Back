@@ -1,10 +1,10 @@
 package com.alumni.model;
 
+import com.alumni.enums.Section;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "resources")
@@ -15,30 +15,31 @@ public class Resource {
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "type_id", nullable = false)
+    @JoinColumn(name = "type_id")
     private ResourceType resourceType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by", nullable = false)
+    @JoinColumn(name = "created_by")
     private Administrator administrator;
 
-    @Column(nullable = false)
-    private String tittle;
+    @Column(name = "title", nullable = false)
+    private String title;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(nullable = false)
-    private Enum section;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "section", nullable = false)
+    private Section section;
 
     @Column(nullable = false)
     private String url;
 
-    @Column(name = "duration_minutes",nullable = false)
+    @Column(name = "duration_minutes")
     private int durationMinutes;
 
     @Column(name = "publication_date", nullable = false)
@@ -66,14 +67,11 @@ public class Resource {
 
     }
 
-    public Resource( Category category, ResourceType resourceType, Administrator administrator,
-                     String tittle, String description, Enum section, String url, int durationMinutes,
-                     LocalDate publicationDate, boolean featured, boolean active, int views, int downloads,
-                     LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.category = category;
-        this.resourceType = resourceType;
-        this.administrator = administrator;
-        this.tittle = tittle;
+    public Resource(
+            String title, String description, Section section, String url, int durationMinutes,
+            LocalDate publicationDate, boolean featured, boolean active, int views, int downloads,
+            LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.title = title;
         this.description = description;
         this.section = section;
         this.url = url;
@@ -119,12 +117,12 @@ public class Resource {
         this.administrator = administrator;
     }
 
-    public String getTittle() {
-        return tittle;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTittle(String tittle) {
-        this.tittle = tittle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -135,11 +133,11 @@ public class Resource {
         this.description = description;
     }
 
-    public Enum getSection() {
+    public Section getSection() {
         return section;
     }
 
-    public void setSection(Enum section) {
+    public void setSection(Section section) {
         this.section = section;
     }
 

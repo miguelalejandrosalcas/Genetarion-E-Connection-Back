@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface UploadedFilesRepository extends JpaRepository<UploadedFile, Long> {
-    List<UploadedFile> findByStorageUrl();
+    List<UploadedFile> findByStorageUrl(String storageUrl);
 }

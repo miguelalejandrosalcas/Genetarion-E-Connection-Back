@@ -1,5 +1,6 @@
 package com.alumni.model;
 
+import com.alumni.enums.EventType;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -16,8 +17,9 @@ public class Interaction {
     @JoinColumn(name = "resource_id", nullable = false)
     private Resource resource;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "event_type", nullable = false)
-    private Enum eventType;
+    private EventType eventType;
 
     @Column(name = "session_id", nullable = false)
     private String sessionId;
@@ -29,7 +31,7 @@ public class Interaction {
 
     }
 
-    public Interaction(Resource resource, Enum eventType, String sessionId,
+    public Interaction(Resource resource, EventType eventType, String sessionId,
                        LocalDateTime createdAt) {
         this.resource = resource;
         this.eventType = eventType;
@@ -37,11 +39,11 @@ public class Interaction {
         this.createdAt = createdAt;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -53,11 +55,11 @@ public class Interaction {
         this.resource = resource;
     }
 
-    public Enum getEventType() {
+    public EventType getEventType() {
         return eventType;
     }
 
-    public void setEventType(Enum eventType) {
+    public void setEventType(EventType eventType) {
         this.eventType = eventType;
     }
 

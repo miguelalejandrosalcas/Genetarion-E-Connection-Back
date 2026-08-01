@@ -10,14 +10,14 @@ public class AdministratorDTO {
     private String email;
     private String passwordHash;
     private String role;
-    private int active;
+    private boolean active;
     private LocalDateTime createdAt;
 
     public AdministratorDTO () {
 
     }
 
-    public AdministratorDTO (long id, String name, String email, String passwordHash, String role, int active, LocalDateTime createdAt) {
+    public AdministratorDTO (long id, String name, String email, String passwordHash, String role, boolean active, LocalDateTime createdAt) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -67,11 +67,11 @@ public class AdministratorDTO {
         this.role = role;
     }
 
-    public int getActive() {
+    public boolean getActive() {
         return active;
     }
 
-    public void setActive(int active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 

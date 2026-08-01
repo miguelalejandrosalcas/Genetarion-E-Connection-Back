@@ -27,7 +27,7 @@ public class Administrator {
     private String role;
 
     @Column(nullable = false)
-    private int active;
+    private boolean active;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
@@ -38,7 +38,7 @@ public class Administrator {
     public Administrator () {
     }
 
-    public Administrator (String name, String email, String passwordHash, String role, int active, LocalDateTime createdAt) {
+    public Administrator (String name, String email, String passwordHash, String role, boolean active, LocalDateTime createdAt) {
         this.name = name;
         this.email = email;
         this.passwordHash = passwordHash;
@@ -87,11 +87,11 @@ public class Administrator {
         this.role = role;
     }
 
-    public int getActive() {
+    public boolean getActive() {
         return active;
     }
 
-    public void setActive(int active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 

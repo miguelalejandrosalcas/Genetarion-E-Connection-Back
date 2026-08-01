@@ -22,25 +22,24 @@ public class Category {
     @Column(nullable = false)
     private boolean active;
 
-    @OneToMany(mappedBy = "resource", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Resource> resources = new ArrayList<>();
 
     public Category(){
     }
 
     public Category(String name, String description,
-                    boolean active, List<Resource> resources) {
+                    boolean active) {
         this.name = name;
         this.description = description;
         this.active = active;
-        this.resources = resources;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -34,8 +34,7 @@ public class UploadedFile {
     public UploadedFile(){
     }
 
-    public UploadedFile(Administrator administrator, String fileName, String storageUrl, String mimeType, Long sizeBytes, LocalDateTime createdAt){
-        this.administrator = administrator;
+    public UploadedFile(String fileName, String storageUrl, String mimeType, Long sizeBytes, LocalDateTime createdAt){
         this.fileName = fileName;
         this.storageUrl = storageUrl;
         this.mimeType = mimeType;

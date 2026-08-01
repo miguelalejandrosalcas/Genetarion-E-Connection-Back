@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 
 public class UploadedFilesDTO {
     private Long id;
-    private Administrator administrator;
     private String fileName;
     private String storageUrl;
     private String mimeType;
@@ -16,9 +15,8 @@ public class UploadedFilesDTO {
     public UploadedFilesDTO(){
     }
 
-    public UploadedFilesDTO(Long id, Administrator administrator, String fileName, String storageUrl, String mimeType, Long sizeBytes, LocalDateTime createdAt){
+    public UploadedFilesDTO(Long id, String fileName, String storageUrl, String mimeType, Long sizeBytes, LocalDateTime createdAt){
         this.id = id;
-        this.administrator = administrator;
         this.fileName = fileName;
         this.storageUrl = storageUrl;
         this.mimeType = mimeType;
@@ -32,14 +30,6 @@ public class UploadedFilesDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Administrator getAdministrator() {
-        return administrator;
-    }
-
-    public void setAdministrator(Administrator administrator) {
-        this.administrator = administrator;
     }
 
     public String getFileName() {
@@ -85,7 +75,6 @@ public class UploadedFilesDTO {
     public static UploadedFilesDTO fromEntity(UploadedFile uploadedFile){
         return new UploadedFilesDTO(
                 uploadedFile.getId(),
-                uploadedFile.getAdministrator(),
                 uploadedFile.getFileName(),
                 uploadedFile.getStorageUrl(),
                 uploadedFile.getMimeType(),
@@ -95,6 +84,6 @@ public class UploadedFilesDTO {
     }
 
     public UploadedFile toEntity(){
-        return new UploadedFile(this.administrator,this.fileName,this.storageUrl,this.mimeType,this.sizeBytes,this.createdAt);
+        return new UploadedFile();
     }
 }

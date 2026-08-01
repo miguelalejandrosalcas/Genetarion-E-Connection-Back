@@ -1,11 +1,6 @@
 package com.alumni.model;
 
 import jakarta.persistence.*;
-<<<<<<< HEAD
-
-@Entity
-@Table(name="resource_type")
-=======
 import org.hibernate.annotations.Fetch;
 
 import java.util.ArrayList;
@@ -13,35 +8,16 @@ import java.util.List;
 
 @Entity
 @Table(name = "resource_types")
->>>>>>> faaa8ee636e409f94037157e6ce65f6287003df4
 public class ResourceType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<<<<<<< HEAD
-    private Long id;
-=======
     private long id;
->>>>>>> faaa8ee636e409f94037157e6ce65f6287003df4
 
     @Column(nullable = false)
     private String name;
 
-<<<<<<< HEAD
-    public ResourceType() {
-    }
-
-    public ResourceType(String name) {
-        this.name = name;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-=======
-    @OneToMany(mappedBy = "resource", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "resourceType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Resource> resources = new ArrayList<>();
 
     public ResourceType() {
@@ -58,7 +34,6 @@ public class ResourceType {
     }
 
     public void setId(long id) {
->>>>>>> faaa8ee636e409f94037157e6ce65f6287003df4
         this.id = id;
     }
 
@@ -69,8 +44,6 @@ public class ResourceType {
     public void setName(String name) {
         this.name = name;
     }
-<<<<<<< HEAD
-=======
 
     public List<Resource> getResources() {
         return resources;
@@ -79,5 +52,4 @@ public class ResourceType {
     public void setResources(List<Resource> resources) {
         this.resources = resources;
     }
->>>>>>> faaa8ee636e409f94037157e6ce65f6287003df4
 }

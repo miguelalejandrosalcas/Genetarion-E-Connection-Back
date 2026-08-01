@@ -6,12 +6,12 @@ public class CategoryDTO {
     private Long id;
     private String name;
     private String description;
-    private int active;
+    private boolean active;
 
-    public CategoryDTO(Long id, String name, String description, int active){
+    public CategoryDTO(Long id, String name, String description, boolean active){
     }
 
-    public CategoryDTO(String name, String description, int active){
+    public CategoryDTO(String name, String description, boolean active){
         this.name = name;
         this.description = description;
         this.active = active;
@@ -41,24 +41,24 @@ public class CategoryDTO {
         this.description = description;
     }
 
-    public int getActive() {
+    public boolean getActive() {
         return active;
     }
 
-    public void setActive(int active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 
-    public static CategoryDTO fromEntity(Category category){
+   public static CategoryDTO fromEntity(Category category){
         return new CategoryDTO(
                 category.getId(),
                 category.getName(),
                 category.getDescription(),
-                category.getActive()
+                category.isActive()
         );
     }
 
     public Category toEntity(){
-        return new Category(this.name,this.description,this.active);
+        return new Category(this.name,this.description, this.active);
     }
 }

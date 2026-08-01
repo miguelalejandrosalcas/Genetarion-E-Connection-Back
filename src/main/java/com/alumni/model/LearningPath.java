@@ -13,69 +13,47 @@ public class LearningPath {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "name", length = 150, nullable = false)
     private String name;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(nullable = false)
-    private boolean active;
+    // Esta es la clave: el campo debe llamarse "program"
+    // porque Program.learningPaths usa mappedBy = "program"
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_programs", nullable = false)
+    private Program program;
 
-    @OneToMany(mappedBy = "learningPath", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<PathSkill> pathSkills = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "learning_path_skills",
+            joinColumns = @JoinColumn(name = "id_learning_paths"),
+            inverseJoinColumns = @JoinColumn(name = "id_skills")
+    )
+    private List<Skill> skills = new ArrayList<>();
 
+    @Column(name = "active", nullable = false)
+    private boolean active = true;
 
-    public LearningPath() {
+    public LearningPath() {}
 
-    }
+    // Getters y setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public LearningPath(String name, String description, boolean active, List<PathSkill> pathSkills) {
-        this.name = name;
-        this.description = description;
-        this.active = active;
-        this.pathSkills = pathSkills;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public Long getId() {
-        return id;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Program getProgram() { return program; }
+    public void setProgram(Program program) { this.program = program; }
 
-    public String getName() {
-        return name;
-    }
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public List<PathSkill> getPathSkills() {
-        return pathSkills;
-    }
-
-    public void setPathSkills(List<PathSkill> pathSkills) {
-        this.pathSkills = pathSkills;
-    }
-
-
+    public List<Skill> getSkills() { return skills; }
+    public void setSkills(List<Skill> skills) { this.skills = skills; }
 }
