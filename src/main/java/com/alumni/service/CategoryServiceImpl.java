@@ -55,7 +55,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = findEntityOrThrow(id);
         if (dto.getName() != null) category.setName(dto.getName());
         if (dto.getDescription() != null) category.setDescription(dto.getDescription());
-        category.setActive(dto.getActive());
+        if (dto.getActive() != null) category.setActive(dto.getActive());
         return CategoryDTO.fromEntity(categoryRepository.save(category));
     }
 

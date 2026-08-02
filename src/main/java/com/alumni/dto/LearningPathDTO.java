@@ -12,14 +12,14 @@ public class LearningPathDTO {
     private String name;
     private String description;
     private Long programId;
-    private boolean active;
+    private Boolean active;
     private List<Long> skillIds = new ArrayList<>();
 
     public LearningPathDTO() {
     }
 
     public LearningPathDTO(Long id, String name, String description, Long programId,
-                           boolean active, List<Long> skillIds) {
+                           Boolean active, List<Long> skillIds) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -28,53 +28,23 @@ public class LearningPathDTO {
         this.skillIds = skillIds;
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getName() {
-        return name;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public Long getProgramId() { return programId; }
+    public void setProgramId(Long programId) { this.programId = programId; }
 
-    public String getDescription() {
-        return description;
-    }
+    public Boolean getActive() { return active; }
+    public void setActive(Boolean active) { this.active = active; }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Long getProgramId() {
-        return programId;
-    }
-
-    public void setProgramId(Long programId) {
-        this.programId = programId;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public List<Long> getSkillIds() {
-        return skillIds;
-    }
-
-    public void setSkillIds(List<Long> skillIds) {
-        this.skillIds = skillIds;
-    }
+    public List<Long> getSkillIds() { return skillIds; }
+    public void setSkillIds(List<Long> skillIds) { this.skillIds = skillIds; }
 
     public static LearningPathDTO fromEntity(LearningPath learningPath) {
         return new LearningPathDTO(
@@ -93,7 +63,7 @@ public class LearningPathDTO {
         LearningPath learningPath = new LearningPath();
         learningPath.setName(this.name);
         learningPath.setDescription(this.description);
-        learningPath.setActive(this.active);
+        learningPath.setActive(this.active != null ? this.active : true);
         return learningPath;
     }
 }

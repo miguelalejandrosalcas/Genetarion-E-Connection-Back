@@ -1,7 +1,9 @@
 package com.alumni.controller;
 
 import com.alumni.dto.CategoryDTO;
+import com.alumni.dto.JobBoardDTO;
 import com.alumni.service.CategoryService;
+import com.alumni.service.JobBoardService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

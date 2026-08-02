@@ -24,7 +24,7 @@ public class JobBoard {
     private String logoUrl;
 
     @Column(nullable = false)
-    private boolean active;
+    private Boolean active;
 
     public JobBoard(){
 
@@ -77,11 +77,11 @@ public class JobBoard {
         this.logoUrl = logoUrl;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 

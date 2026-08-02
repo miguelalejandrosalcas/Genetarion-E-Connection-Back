@@ -20,52 +20,60 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ResourcesService {
+public class ResourceServiceImpl implements ResourceService {
 
     private final ResourceRepository resourceRepository;
     private final CategoryRepository categoryRepository;
     private final ResourceTypeRepository resourceTypeRepository;
     private final AdministratorRepository administratorRepository;
 
-    public ResourcesService(ResourceRepository resourceRepository,
-                            CategoryRepository categoryRepository,
-                            ResourceTypeRepository resourceTypeRepository,
-                            AdministratorRepository administratorRepository) {
+    public ResourceServiceImpl(ResourceRepository resourceRepository,
+                               CategoryRepository categoryRepository,
+                               ResourceTypeRepository resourceTypeRepository,
+                               AdministratorRepository administratorRepository) {
         this.resourceRepository = resourceRepository;
         this.categoryRepository = categoryRepository;
         this.resourceTypeRepository = resourceTypeRepository;
         this.administratorRepository = administratorRepository;
     }
 
+    @Override
     public List<ResourceDTO> getAll() {
         return toDtoList(resourceRepository.findAll());
     }
 
+    @Override
     public List<ResourceDTO> getAllActive() {
         return toDtoList(resourceRepository.findByActiveTrue());
     }
 
+    @Override
     public ResourceDTO getById(long id) {
         return ResourceDTO.fromEntity(findEntityOrThrow(id));
     }
 
+    @Override
     public List<ResourceDTO> getBySection(String sectionParam) {
         Section section = parseSection(sectionParam);
         return toDtoList(resourceRepository.findBySectionAndActiveTrue(section));
     }
 
+    @Override
     public List<ResourceDTO> getByCategory(Long categoryId) {
         return toDtoList(resourceRepository.findByCategory_IdAndActiveTrue(categoryId));
     }
 
+    @Override
     public List<ResourceDTO> getFeatured() {
         return toDtoList(resourceRepository.findByFeaturedTrueAndActiveTrue());
     }
 
+    @Override
     public List<ResourceDTO> search(String query) {
         return toDtoList(resourceRepository.findByTitleContainingIgnoreCaseAndActiveTrue(query));
     }
 
+    @Override
     public ResourceDTO create(ResourceDTO dto) {
         if (dto.getTitle() == null || dto.getTitle().isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El título es obligatorio");
@@ -97,6 +105,7 @@ public class ResourcesService {
         return ResourceDTO.fromEntity(resourceRepository.save(resource));
     }
 
+    @Override
     public ResourceDTO update(long id, ResourceDTO dto) {
         Resource resource = findEntityOrThrow(id);
 
@@ -116,16 +125,19 @@ public class ResourcesService {
         return ResourceDTO.fromEntity(resourceRepository.save(resource));
     }
 
+    @Override
     public void delete(long id) {
         resourceRepository.delete(findEntityOrThrow(id));
     }
 
+    @Override
     public ResourceDTO registerView(long id) {
         Resource resource = findEntityOrThrow(id);
         resource.setViews(resource.getViews() + 1);
         return ResourceDTO.fromEntity(resourceRepository.save(resource));
     }
 
+    @Override
     public ResourceDTO registerDownload(long id) {
         Resource resource = findEntityOrThrow(id);
         resource.setDownloads(resource.getDownloads() + 1);

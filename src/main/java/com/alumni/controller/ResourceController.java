@@ -1,7 +1,7 @@
 package com.alumni.controller;
 
 import com.alumni.dto.ResourceDTO;
-import com.alumni.service.ResourcesService;
+import com.alumni.service.ResourceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +12,10 @@ import java.util.List;
 @RequestMapping("/api/resources")
 public class ResourceController {
 
-    private final ResourcesService resourcesService;
+    private final ResourceService resourceService;
 
-    public ResourceController(ResourcesService resourcesService) {
-        this.resourcesService = resourcesService;
+    public ResourceController(ResourceService resourceService) {
+        this.resourceService = resourceService;
     }
 
     @GetMapping
@@ -26,51 +26,50 @@ public class ResourceController {
             @RequestParam(required = false) String search,
             @RequestParam(required = false, defaultValue = "false") boolean includeInactive) {
 
-        // valdiar luego si esta lógica deberia ir en el servicio
         if (search != null && !search.isBlank()) {
-            return resourcesService.search(search);
+            return resourceService.search(search);
         }
         if (section != null && !section.isBlank()) {
-            return resourcesService.getBySection(section);
+            return resourceService.getBySection(section);
         }
         if (categoryId != null) {
-            return resourcesService.getByCategory(categoryId);
+            return resourceService.getByCategory(categoryId);
         }
         if (Boolean.TRUE.equals(featured)) {
-            return resourcesService.getFeatured();
+            return resourceService.getFeatured();
         }
-        return includeInactive ? resourcesService.getAll() : resourcesService.getAllActive();
+        return includeInactive ? resourceService.getAll() : resourceService.getAllActive();
     }
 
     @GetMapping("/{id}")
     public ResourceDTO getResource(@PathVariable long id) {
-        return resourcesService.getById(id);
+        return resourceService.getById(id);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResourceDTO createResource(@RequestBody ResourceDTO dto) {
-        return resourcesService.create(dto);
+        return resourceService.create(dto);
     }
 
     @PutMapping("/{id}")
     public ResourceDTO updateResource(@PathVariable long id, @RequestBody ResourceDTO dto) {
-        return resourcesService.update(id, dto);
+        return resourceService.update(id, dto);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteResource(@PathVariable long id) {
-        resourcesService.delete(id);
+        resourceService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{id}/view")
     public ResourceDTO registerView(@PathVariable long id) {
-        return resourcesService.registerView(id);
+        return resourceService.registerView(id);
     }
 
     @PatchMapping("/{id}/download")
     public ResourceDTO registerDownload(@PathVariable long id) {
-        return resourcesService.registerDownload(id);
+        return resourceService.registerDownload(id);
     }
 }

@@ -8,13 +8,13 @@ public class JobBoardDTO {
     private String url;
     private String description;
     private String logoUrl;
-    private boolean active;
+    private Boolean active;
 
     public JobBoardDTO() {
     }
 
     public JobBoardDTO(Long id, String name, String url, String description,
-                       String logoUrl, boolean active) {
+                       String logoUrl, Boolean active) {
         this.id = id;
         this.name = name;
         this.url = url;
@@ -63,11 +63,11 @@ public class JobBoardDTO {
         this.logoUrl = logoUrl;
     }
 
-    public boolean getActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
