@@ -52,7 +52,13 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public void delete(Long id) {
-        skillRepository.delete(findEntityOrThrow(id));
+        Skill skill = findEntityOrThrow(id);
+        if (!skill.getLearningPaths().isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT,
+                    "No se puede borrar: la skill está en uso por " + skill.getLearningPaths().size()
+                            + " ruta(s) de aprendizaje");
+        }
+        skillRepository.delete(skill);
     }
 
     private Skill findEntityOrThrow(Long id) {
