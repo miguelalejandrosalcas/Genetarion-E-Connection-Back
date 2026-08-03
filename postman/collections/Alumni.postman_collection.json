@@ -560,6 +560,18 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "New Request",
+      "id": "c040b156-f971-4366-a05d-4630d9c3e361",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
     }
   ]
 }
