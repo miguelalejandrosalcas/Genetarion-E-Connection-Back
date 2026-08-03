@@ -2,7 +2,6 @@ package com.alumni.controller;
 
 import com.alumni.dto.CreateResourceRequest;
 import com.alumni.dto.ResourceDTO;
-import com.alumni.model.Administrator;
 import com.alumni.model.Resource;
 import com.alumni.service.ResourceService;
 import org.springframework.http.HttpStatus;
@@ -76,7 +75,7 @@ public class ResourceController {
         return resourceService.registerDownload(id);
     }
 
-    @PostMapping
+/*    @PostMapping
     public ResponseEntity<Resource> createResource(
             @RequestBody CreateResourceRequest request,
             @PathVariable Long id) {
@@ -95,5 +94,5 @@ public class ResourceController {
         );
 
         return ResponseEntity.ok(resource);
-    }
+    }*/
 }

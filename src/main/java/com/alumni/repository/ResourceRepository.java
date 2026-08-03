@@ -19,4 +19,8 @@ public interface ResourceRepository extends JpaRepository<Resource, Long> {
     List<Resource> findByFeaturedTrueAndActiveTrue();
 
     List<Resource> findByTitleContainingIgnoreCaseAndActiveTrue(String title);
+
+    long countByActiveTrue();
+
+    long countBySectionAndActiveTrue(Section section);
 }

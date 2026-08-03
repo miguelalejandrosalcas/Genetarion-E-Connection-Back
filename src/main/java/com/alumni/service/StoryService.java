@@ -8,6 +8,7 @@ public interface StoryService {
     List<StoryDTO> getAll();
     List<StoryDTO> getAllActive();
     List<StoryDTO> getFeatured();
+    List<StoryDTO> getRecent();
     StoryDTO getById(Long id);
     StoryDTO create(StoryDTO dto);
     StoryDTO update(Long id, StoryDTO dto);

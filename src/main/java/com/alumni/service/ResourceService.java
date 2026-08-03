@@ -20,7 +20,7 @@ public interface ResourceService {
     void delete(long id);
     ResourceDTO registerView(long id);
     ResourceDTO registerDownload(long id);
-    Resource syncResource(
+  /*  Resource syncResource(
             Long administratorId,
             Long categoryId,
             Long resourceTypeId,
@@ -30,5 +30,5 @@ public interface ResourceService {
             String url,
             int durationMinutes,
             LocalDate publicationDate,
-            boolean featured);
+            boolean featured);*/
 }

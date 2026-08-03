@@ -1,0 +1,565 @@
+{
+  "info": {
+    "_postman_id": "86e5f37a-93ad-4d5e-a93d-7c4aa4acb90d",
+    "name": "Alumni",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "saveResource",
+      "id": "809c0a36-ea02-4719-b897-44497d978667",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"title\": \"Guía de CV impactante\",\r\n  \"description\": \"Aprende a estructurar un CV que destaque ante reclutadores.\",\r\n  \"section\": \"library\",\r\n  \"url\": \"https://ejemplo.com/guia-cv.pdf\",\r\n  \"durationMinutes\": 0,\r\n  \"featured\": true\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/resources",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "resources"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getResource",
+      "id": "5f75f44d-7a76-44ca-bf72-666ed7124b1b",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/resources",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "resources"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getCategories",
+      "id": "8645431b-ea84-4eac-b4c6-4540731fe309",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/categories",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "categories"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "saveCategory",
+      "id": "ef8ae669-a94a-48a9-b9f8-f39e4d86cb8f",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Hoja de vida\",\r\n  \"description\": \"Recursos sobre CVs y currículums\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/categories",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "categories"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getResourcesTypes",
+      "id": "6747e96c-e8b9-4c76-a4fb-6837b4abc19c",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/resource-types",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "resource-types"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getProgram",
+      "id": "091f0598-2dcc-4ab3-b94c-4508da5b4081",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/programs",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "programs"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "saveProgram",
+      "id": "9ca5bbd3-815a-4d1d-a9ed-7bd94e34cb81",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Desarrollo Web Full Stack\",\r\n    \"description\": \"Programa enfocado en tecnologías web modernas\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/programs",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "programs"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "saveSkill",
+      "id": "ff97bd02-27dc-451c-824c-829816125f4c",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"skillName\": \"Spring Boot\",\r\n    \"description\": \"Framework de Java para crear APIs REST\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/skills",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "skills"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getSkills",
+      "id": "c884a18c-9c0e-485a-9e79-636490b2bc22",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/skills",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "skills"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "saveLearningPaths",
+      "id": "e9a0f324-c95c-4748-9420-0d3a3e2e4798",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "   {\r\n     \"name\": \"Backend sólido\",\r\n     \"description\": \"Fundamentos de backend con Spring Boot\",\r\n     \"programId\": 1,\r\n     \"skillIds\": [1]\r\n   }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/learning-paths",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "learning-paths"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getLearningPaths",
+      "id": "2308a9c8-eb76-4935-a4d8-54b9273e6269",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/learning-paths",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "learning-paths"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getJobBoards",
+      "id": "a6525243-5770-45e3-9972-92462094a20a",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/job-boards",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "job-boards"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "saveJob",
+      "id": "6ca4c104-0e2e-4a2b-a057-3c28017fc156",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Computrabajo\",\r\n  \"url\": \"https://computrabajo.com\",\r\n  \"description\": \"Bolsa de empleo colombiana\",\r\n  \"logoUrl\": \"https://computrabajo.com/logo.png\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/job-boards",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "job-boards"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getStories",
+      "id": "23756c6d-35fb-49d8-84a5-4c07f8b50f1b",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/stories?featured=true",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "stories"
+          ],
+          "query": [
+            {
+              "key": "featured",
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "saveStory",
+      "id": "106dfa05-4577-47e4-b633-1e239a1f2bb9",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"administratorId\": 1,\r\n  \"alumniName\": \"Camila Rojas\",\r\n  \"program\": \"Full Stack Java\",\r\n  \"photoUrl\": \"https://ejemplo.com/camila.jpg\",\r\n  \"testimonial\": \"El bootcamp me cambió la carrera\",\r\n  \"trajectory\": \"De soporte técnico a backend developer\",\r\n  \"videoUrl\": \"https://youtube.com/watch?v=xyz\",\r\n  \"featured\": true,\r\n  \"publicationDate\": \"2026-08-01\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/stories",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "stories"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "saveInteraction",
+      "id": "4378f69d-b341-4692-9507-333457d95789",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"resourceId\": 1,\r\n  \"eventType\": \"view\",\r\n  \"sessionId\": \"sess-abc123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/interactions",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "interactions"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getInteractions",
+      "id": "b2df9229-ae7d-4467-9ec3-4db612dd98df",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/interactions",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "interactions"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "saveFiles",
+      "id": "552475c9-9d3a-42d1-a082-1527fd65124d",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"administratorId\": 1,\r\n    \"fileName\": \"programa-fullstack.pdf\",\r\n    \"storageUrl\": \"https://res.cloudinary.com/demo/programa-fullstack.pdf\",\r\n    \"mimeType\": \"application/pdf\",\r\n    \"sizeBytes\": 204800\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/uploaded-files",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "uploaded-files"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getFile",
+      "id": "09582b64-9b24-417f-8a77-c0321aaff811",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/uploaded-files",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "uploaded-files"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "saveFullProgram",
+      "id": "f1839898-f5ad-437b-a52c-9d4f62a39fb4",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"name\": \"Desarrollo Web Full Stack\",\r\n  \"description\": \"Programa enfocado en tecnologías web modernas\",\r\n  \"routes\": [\r\n    {\r\n      \"title\": \"Fundamentos de Backend\",\r\n      \"topics\": [\"Java\", \"Spring Boot\", \"SQL\"]\r\n    },\r\n    {\r\n      \"title\": \"Fundamentos de Frontend\",\r\n      \"topics\": [\"HTML\", \"CSS\", \"JavaScript\"]\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/programs/full",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "programs",
+            "full"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "id": "95b17ac7-0550-42de-8096-cdbabb784174",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "id": "756c04e7-f40d-456a-b235-e9056622f8b4",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    }
+  ]
+}

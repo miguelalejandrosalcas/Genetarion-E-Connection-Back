@@ -28,6 +28,11 @@ public class StoryController {
         return includeInactive ? storyService.getAll() : storyService.getAllActive();
     }
 
+    @GetMapping("/recent")
+    public List<StoryDTO> getRecentStories() {
+        return storyService.getRecent();
+    }
+
     @GetMapping("/{id}")
     public StoryDTO getStory(@PathVariable Long id) {
         return storyService.getById(id);

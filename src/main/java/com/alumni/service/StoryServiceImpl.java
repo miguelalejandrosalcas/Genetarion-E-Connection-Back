@@ -40,6 +40,11 @@ public class StoryServiceImpl implements StoryService {
     }
 
     @Override
+    public List<StoryDTO> getRecent() {
+        return toDtoList(storyRepository.findTop4ByActiveTrueOrderByPublicationDateDesc());
+    }
+
+    @Override
     public StoryDTO getById(Long id) {
         return StoryDTO.fromEntity(findEntityOrThrow(id));
     }

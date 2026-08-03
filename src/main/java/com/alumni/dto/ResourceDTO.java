@@ -22,6 +22,9 @@ public class ResourceDTO {
     private Boolean active;
     private Integer views;
     private Integer downloads;
+    private String thumbnailUrl;
+    private String fileName;
+    private Long fileSize;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -33,6 +36,7 @@ public class ResourceDTO {
                        String title, String description, Section section, String url,
                        Integer durationMinutes, LocalDate publicationDate, Boolean featured,
                        Boolean active, Integer views, Integer downloads,
+                       String thumbnailUrl, String fileName, Long fileSize,
                        LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.categoryId = categoryId;
@@ -48,6 +52,9 @@ public class ResourceDTO {
         this.active = active;
         this.views = views;
         this.downloads = downloads;
+        this.thumbnailUrl = thumbnailUrl;
+        this.fileName = fileName;
+        this.fileSize = fileSize;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -120,7 +127,7 @@ public class ResourceDTO {
         return durationMinutes;
     }
 
-    public void setDurationMinutes(int durationMinutes) {
+    public void setDurationMinutes(Integer durationMinutes) {
         this.durationMinutes = durationMinutes;
     }
 
@@ -164,6 +171,30 @@ public class ResourceDTO {
         this.downloads = downloads;
     }
 
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public Long getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(Long fileSize) {
+        this.fileSize = fileSize;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -196,6 +227,9 @@ public class ResourceDTO {
                 resource.isActive(),
                 resource.getViews(),
                 resource.getDownloads(),
+                resource.getThumbnailUrl(),
+                resource.getFileName(),
+                resource.getFileSize(),
                 resource.getCreatedAt(),
                 resource.getUpdatedAt()
         );
@@ -213,6 +247,9 @@ public class ResourceDTO {
         resource.setActive(this.active);
         resource.setViews(this.views);
         resource.setDownloads(this.downloads);
+        resource.setThumbnailUrl(this.thumbnailUrl);
+        resource.setFileName(this.fileName);
+        resource.setFileSize(this.fileSize);
         resource.setCreatedAt(this.createdAt);
         resource.setUpdatedAt(this.updatedAt);
         return resource;

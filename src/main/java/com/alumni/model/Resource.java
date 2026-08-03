@@ -26,7 +26,7 @@ public class Resource {
     @JoinColumn(name = "created_by")
     private Administrator administrator;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title", nullable = false, length = 200)
     private String title;
 
     @Column(columnDefinition = "TEXT")
@@ -36,11 +36,11 @@ public class Resource {
     @Column(name = "section", nullable = false)
     private Section section;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 1000)
     private String url;
 
     @Column(name = "duration_minutes")
-    private int durationMinutes;
+    private Integer durationMinutes;
 
     @Column(name = "publication_date", nullable = false)
     private LocalDate publicationDate;
@@ -57,6 +57,15 @@ public class Resource {
     @Column(nullable = false)
     private int downloads;
 
+    @Column(name = "thumbnail_url", length = 1000)
+    private String thumbnailUrl;
+
+    @Column(name = "file_name")
+    private String fileName;
+
+    @Column(name = "file_size")
+    private Long fileSize;
+
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
@@ -68,8 +77,9 @@ public class Resource {
     }
 
     public Resource(Administrator administrator, Category category, ResourceType resourceType,
-                    String title, String description, Section section, String url, int durationMinutes,
+                    String title, String description, Section section, String url, Integer durationMinutes,
                     LocalDate publicationDate, boolean featured, boolean active, int views, int downloads,
+                    String thumbnailUrl, String fileName, Long fileSize,
                     LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.administrator = administrator;
         this.category = category;
@@ -84,6 +94,9 @@ public class Resource {
         this.active = active;
         this.views = views;
         this.downloads = downloads;
+        this.thumbnailUrl = thumbnailUrl;
+        this.fileName = fileName;
+        this.fileSize = fileSize;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -152,11 +165,11 @@ public class Resource {
         this.url = url;
     }
 
-    public int getDurationMinutes() {
+    public Integer getDurationMinutes() {
         return durationMinutes;
     }
 
-    public void setDurationMinutes(int durationMinutes) {
+    public void setDurationMinutes(Integer durationMinutes) {
         this.durationMinutes = durationMinutes;
     }
 
@@ -198,6 +211,30 @@ public class Resource {
 
     public void setDownloads(int downloads) {
         this.downloads = downloads;
+    }
+
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public Long getFileSize() {
+        return fileSize;
+    }
+
+    public void setFileSize(Long fileSize) {
+        this.fileSize = fileSize;
     }
 
     public LocalDateTime getCreatedAt() {

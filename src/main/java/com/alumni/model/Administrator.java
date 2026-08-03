@@ -113,7 +113,7 @@ public class Administrator {
         this.resources = resources;
     }
 
-    public Resource addResource(Category category, ResourceType resourceType, String title, String description,
+/*    public Resource addResource(Category category, ResourceType resourceType, String title, String description,
                                 Section section, String url, int durationMinutes, LocalDate publicationDate,
                                 boolean featured, boolean active, int views, int downloads,
                                 LocalDateTime createdAt, LocalDateTime updatedAt) {
@@ -126,6 +126,6 @@ public class Administrator {
         resourceType.getResources().add(resource);
 
         return resource;
-    }
+    }*/
 }
 
