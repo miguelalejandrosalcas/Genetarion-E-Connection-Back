@@ -1,7 +1,10 @@
 package com.alumni.service;
 
 import com.alumni.dto.ResourceDTO;
+import com.alumni.enums.Section;
+import com.alumni.model.Resource;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ResourceService {
@@ -17,4 +20,15 @@ public interface ResourceService {
     void delete(long id);
     ResourceDTO registerView(long id);
     ResourceDTO registerDownload(long id);
+    Resource syncResource(
+            Long administratorId,
+            Long categoryId,
+            Long resourceTypeId,
+            String title,
+            String description,
+            Section section,
+            String url,
+            int durationMinutes,
+            LocalDate publicationDate,
+            boolean featured);
 }

@@ -40,11 +40,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDTO create(CategoryDTO dto) {
-        if (dto.getName() == null || dto.getName().isBlank()) {
+        if (dto.getCategoryType() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre es obligatorio");
         }
         Category category = new Category();
-        category.setName(dto.getName());
+        category.setCategoryType(dto.getCategoryType());
         category.setDescription(dto.getDescription());
         category.setActive(true);
         return CategoryDTO.fromEntity(categoryRepository.save(category));
@@ -53,7 +53,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDTO update(Long id, CategoryDTO dto) {
         Category category = findEntityOrThrow(id);
-        if (dto.getName() != null) category.setName(dto.getName());
+        if (dto.getCategoryType() != null) category.setCategoryType(dto.getCategoryType());
         if (dto.getDescription() != null) category.setDescription(dto.getDescription());
         if (dto.getActive() != null) category.setActive(dto.getActive());
         return CategoryDTO.fromEntity(categoryRepository.save(category));

@@ -30,11 +30,10 @@ public class Category {
     public Category(){
     }
 
-    public Category(CategoryType categoryType, String description, boolean active, List<Resource> resources) {
+    public Category(CategoryType categoryType, String description, boolean active) {
         this.categoryType = categoryType;
         this.description = description;
         this.active = active;
-        this.resources = resources;
     }
 
     public Long getId() {

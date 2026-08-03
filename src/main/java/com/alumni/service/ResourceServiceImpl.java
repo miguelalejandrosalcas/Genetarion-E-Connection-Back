@@ -10,6 +10,7 @@ import com.alumni.repository.AdministratorRepository;
 import com.alumni.repository.CategoryRepository;
 import com.alumni.repository.ResourceRepository;
 import com.alumni.repository.ResourceTypeRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -184,5 +185,41 @@ public class ResourceServiceImpl implements ResourceService {
         return resources.stream()
                 .map(ResourceDTO::fromEntity)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public Resource syncResource(
+            Long administratorId,
+            Long categoryId,
+            Long resourceTypeId,
+            String title,
+            String description,
+            Section section,
+            String url,
+            int durationMinutes,
+            LocalDate publicationDate,
+            boolean featured) {
+
+        Administrator administrator = administratorRepository.findById(administratorId)
+                .orElseThrow(() -> new RuntimeException("Administrador no encontrado: " + administratorId));
+
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new RuntimeException("Categoría no encontrada: " + categoryId));
+
+        ResourceType resourceType = resourceTypeRepository.findById(resourceTypeId)
+                .orElseThrow(() -> new RuntimeException("Tipo de recurso no encontrado: " + resourceTypeId));
+
+        Resource resource = administrator.addResource(
+                category, resourceType, title, description, section, url,
+                durationMinutes, publicationDate, featured,
+                true,
+                0,
+                0,
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        );
+
+        return resourceRepository.save(resource);
     }
 }

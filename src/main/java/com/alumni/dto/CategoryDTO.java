@@ -1,11 +1,12 @@
 package com.alumni.dto;
 
+import com.alumni.enums.CategoryType;
 import com.alumni.model.Category;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 public class CategoryDTO {
     private Long id;
-    private String name;
+    private CategoryType categoryType;
     private String description;
     private Boolean active;
 
@@ -13,9 +14,9 @@ public class CategoryDTO {
     public CategoryDTO() {
     }
 
-    public CategoryDTO(Long id, String name, String description, Boolean active) {
+    public CategoryDTO(Long id, CategoryType categoryType, String description, Boolean active) {
         this.id = id;
-        this.name = name;
+        this.categoryType = categoryType;
         this.description = description;
         this.active = active;
     }
@@ -23,8 +24,13 @@ public class CategoryDTO {
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public CategoryType getCategoryType() {
+        return categoryType;
+    }
+
+    public void setCategoryType(CategoryType categoryType) {
+        this.categoryType = categoryType;
+    }
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
@@ -35,13 +41,16 @@ public class CategoryDTO {
     public static CategoryDTO fromEntity(Category category) {
         return new CategoryDTO(
                 category.getId(),
-                category.getName(),
+                category.getCategoryType(),
                 category.getDescription(),
                 category.isActive()
         );
     }
 
     public Category toEntity() {
-        return new Category(this.name, this.description, this.active != null ? this.active : true);
+        return new Category(
+                this.categoryType,
+                this.description,
+                this.active != null ? this.active : true);
     }
 }

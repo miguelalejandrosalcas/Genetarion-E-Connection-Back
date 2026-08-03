@@ -1,7 +1,9 @@
 package com.alumni.model;
 
+import com.alumni.enums.Section;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,6 +113,19 @@ public class Administrator {
         this.resources = resources;
     }
 
+    public Resource addResource(Category category, ResourceType resourceType, String title, String description,
+                                Section section, String url, int durationMinutes, LocalDate publicationDate,
+                                boolean featured, boolean active, int views, int downloads,
+                                LocalDateTime createdAt, LocalDateTime updatedAt) {
 
+        Resource resource = new Resource(this, category, resourceType, title, description, section, url,
+                durationMinutes, publicationDate, featured, active, views, downloads, createdAt, updatedAt);
+
+        this.resources.add(resource);
+        category.getResources().add(resource);
+        resourceType.getResources().add(resource);
+
+        return resource;
+    }
 }
 

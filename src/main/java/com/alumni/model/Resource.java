@@ -67,10 +67,13 @@ public class Resource {
 
     }
 
-    public Resource(
-            String title, String description, Section section, String url, int durationMinutes,
-            LocalDate publicationDate, boolean featured, boolean active, int views, int downloads,
-            LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Resource(Administrator administrator, Category category, ResourceType resourceType,
+                    String title, String description, Section section, String url, int durationMinutes,
+                    LocalDate publicationDate, boolean featured, boolean active, int views, int downloads,
+                    LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.administrator = administrator;
+        this.category = category;
+        this.resourceType = resourceType;
         this.title = title;
         this.description = description;
         this.section = section;

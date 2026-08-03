@@ -1,6 +1,9 @@
 package com.alumni.controller;
 
+import com.alumni.dto.CreateResourceRequest;
 import com.alumni.dto.ResourceDTO;
+import com.alumni.model.Administrator;
+import com.alumni.model.Resource;
 import com.alumni.service.ResourceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,5 +74,26 @@ public class ResourceController {
     @PatchMapping("/{id}/download")
     public ResourceDTO registerDownload(@PathVariable long id) {
         return resourceService.registerDownload(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<Resource> createResource(
+            @RequestBody CreateResourceRequest request,
+            @PathVariable Long id) {
+
+        Resource resource = resourceService.syncResource(
+                id,
+                request.getCategoryId(),
+                request.getResourceTypeId(),
+                request.getTitle(),
+                request.getDescription(),
+                request.getSection(),
+                request.getUrl(),
+                request.getDurationMinutes(),
+                request.getPublicationDate(),
+                request.isFeatured()
+        );
+
+        return ResponseEntity.ok(resource);
     }
 }
