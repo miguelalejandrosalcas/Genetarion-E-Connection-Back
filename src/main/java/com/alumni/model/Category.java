@@ -1,5 +1,6 @@
 package com.alumni.model;
 
+import com.alumni.enums.CategoryType;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -13,8 +14,9 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String name;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category_type", nullable = false)
+    private CategoryType categoryType;
 
     @Column(columnDefinition = "TEXT")
     private String description;
@@ -28,11 +30,11 @@ public class Category {
     public Category(){
     }
 
-    public Category(String name, String description,
-                    boolean active) {
-        this.name = name;
+    public Category(CategoryType categoryType, String description, boolean active, List<Resource> resources) {
+        this.categoryType = categoryType;
         this.description = description;
         this.active = active;
+        this.resources = resources;
     }
 
     public Long getId() {
@@ -43,12 +45,12 @@ public class Category {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public CategoryType getCategoryType() {
+        return categoryType;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCategoryType(CategoryType categoryType) {
+        this.categoryType = categoryType;
     }
 
     public String getDescription() {
