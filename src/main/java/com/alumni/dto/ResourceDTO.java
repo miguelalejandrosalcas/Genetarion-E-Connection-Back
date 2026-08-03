@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ResourceDTO {
-    private long id;
+    private Long id;
     private Long categoryId;
     private Long resourceTypeId;
     private Long administratorId;
@@ -16,12 +16,12 @@ public class ResourceDTO {
     private String description;
     private Section section;
     private String url;
-    private int durationMinutes;
+    private Integer durationMinutes;
     private LocalDate publicationDate;
-    private boolean featured;
-    private boolean active;
-    private int views;
-    private int downloads;
+    private Boolean featured;
+    private Boolean active;
+    private Integer views;
+    private Integer downloads;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -29,10 +29,10 @@ public class ResourceDTO {
     public ResourceDTO() {
     }
 
-    public ResourceDTO(long id, Long categoryId, Long resourceTypeId, Long administratorId,
+    public ResourceDTO(Long id, Long categoryId, Long resourceTypeId, Long administratorId,
                        String title, String description, Section section, String url,
-                       int durationMinutes, LocalDate publicationDate, boolean featured,
-                       boolean active, int views, int downloads,
+                       Integer durationMinutes, LocalDate publicationDate, Boolean featured,
+                       Boolean active, Integer views, Integer downloads,
                        LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.categoryId = categoryId;
@@ -116,7 +116,7 @@ public class ResourceDTO {
         this.url = url;
     }
 
-    public int getDurationMinutes() {
+    public Integer getDurationMinutes() {
         return durationMinutes;
     }
 
@@ -132,35 +132,35 @@ public class ResourceDTO {
         this.publicationDate = publicationDate;
     }
 
-    public boolean isFeatured() {
+    public Boolean isFeatured() {
         return featured;
     }
 
-    public void setFeatured(boolean featured) {
+    public void setFeatured(Boolean featured) {
         this.featured = featured;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
-    public int getViews() {
+    public Integer getViews() {
         return views;
     }
 
-    public void setViews(int views) {
+    public void setViews(Integer views) {
         this.views = views;
     }
 
-    public int getDownloads() {
+    public Integer getDownloads() {
         return downloads;
     }
 
-    public void setDownloads(int downloads) {
+    public void setDownloads(Integer downloads) {
         this.downloads = downloads;
     }
 

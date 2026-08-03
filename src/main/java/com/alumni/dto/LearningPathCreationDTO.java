@@ -3,10 +3,19 @@ package com.alumni.dto;
 import java.util.List;
 
 public class LearningPathCreationDTO {
+    private Long id;
     private String title;
     private List<String> topics;
 
     public LearningPathCreationDTO() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitle() {

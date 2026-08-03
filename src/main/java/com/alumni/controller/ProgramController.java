@@ -5,9 +5,11 @@ import com.alumni.dto.ProgramCreationResponseDTO;
 import com.alumni.dto.ProgramDTO;
 import com.alumni.service.ProgramCreationService;
 import com.alumni.service.ProgramService;
+import com.alumni.dto.ProgramFullDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -50,9 +52,20 @@ public class ProgramController {
         return programService.update(id, dto);
     }
 
+    @PutMapping("/full/{id}")
+    public ProgramCreationResponseDTO updateFullProgram(@PathVariable Long id,
+                                                        @RequestBody ProgramCreationRequestDTO request) {
+        return programCreationService.updateFull(id, request);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProgram(@PathVariable Long id) {
         programService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/full/{id}")
+    public ProgramFullDTO getFullProgram(@PathVariable Long id) {
+        return programCreationService.getFull(id);
     }
 }
