@@ -1,5 +1,6 @@
 package com.alumni.dto;
 
+import com.alumni.enums.JobCategory;
 import com.alumni.model.JobBoard;
 
 public class JobBoardDTO {
@@ -9,18 +10,20 @@ public class JobBoardDTO {
     private String description;
     private String logoUrl;
     private Boolean active;
+    private JobCategory category;
 
     public JobBoardDTO() {
     }
 
     public JobBoardDTO(Long id, String name, String url, String description,
-                       String logoUrl, Boolean active) {
+                       String logoUrl, Boolean active, JobCategory category) {
         this.id = id;
         this.name = name;
         this.url = url;
         this.description = description;
         this.logoUrl = logoUrl;
         this.active = active;
+        this.category = category;
     }
 
     public Long getId() {
@@ -71,6 +74,14 @@ public class JobBoardDTO {
         this.active = active;
     }
 
+    public JobCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(JobCategory category) {
+        this.category = category;
+    }
+
     public static JobBoardDTO fromEntity(JobBoard jobBoard) {
         return new JobBoardDTO(
                 jobBoard.getId(),
@@ -78,11 +89,12 @@ public class JobBoardDTO {
                 jobBoard.getUrl(),
                 jobBoard.getDescription(),
                 jobBoard.getLogoUrl(),
-                jobBoard.isActive()
+                jobBoard.isActive(),
+                jobBoard.getCategory()
         );
     }
 
     public JobBoard toEntity() {
-        return new JobBoard(this.name, this.url, this.description, this.logoUrl, this.active);
+        return new JobBoard(this.name, this.url, this.description, this.logoUrl, this.active, this.category);
     }
 }
