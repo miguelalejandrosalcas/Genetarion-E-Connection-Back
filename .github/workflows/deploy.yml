@@ -131,6 +131,18 @@ jobs:
               {
                 "name": "DB_PASSWORD",
                 "value": "${{ secrets.DB_PASSWORD }}"
+              },
+              {
+                "name": "JWT_SECRET",
+                "value": "${{ secrets.JWT_SECRET }}"
+              },
+              {
+                "name": "JWT_EXPIRATION_MS",
+                "value": "${{ secrets.JWT_EXPIRATION_MS }}"
+              },
+              {
+                "name": "CONTAINER_PORT",
+                "value": "${{ secrets.CONTAINER_PORT }}"
               }
             ]
 
