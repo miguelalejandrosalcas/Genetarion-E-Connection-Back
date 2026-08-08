@@ -74,7 +74,7 @@ public class JobBoardServiceImpl implements JobBoardService {
         if (dto.getDescription() != null) jobBoard.setDescription(dto.getDescription());
         if (dto.getLogoUrl() != null) jobBoard.setLogoUrl(dto.getLogoUrl());
         if (dto.getCategory() != null) jobBoard.setCategory(dto.getCategory());
-        jobBoard.setActive(dto.getActive());
+        if (dto.getActive() != null) jobBoard.setActive(dto.getActive());
 
         return JobBoardDTO.fromEntity(jobBoardRepository.save(jobBoard));
     }
