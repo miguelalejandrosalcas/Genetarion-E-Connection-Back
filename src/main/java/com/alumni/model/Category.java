@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.alumni.enums.Section;
 
 @Entity
 @Table(name = "categories")
@@ -24,15 +25,20 @@ public class Category {
     @Column(nullable = false)
     private boolean active;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "section", nullable = false)
+    private Section section;
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Resource> resources = new ArrayList<>();
 
     public Category(){
     }
 
-    public Category(CategoryType categoryType, String description, boolean active) {
+    public Category(CategoryType categoryType, String description, Section section, boolean active) {
         this.categoryType = categoryType;
         this.description = description;
+        this.section = section;
         this.active = active;
     }
 
@@ -75,4 +81,8 @@ public class Category {
     public void setResources(List<Resource> resources) {
         this.resources = resources;
     }
+
+    public Section getSection() { return section; }
+    public void setSection(Section section) { this.section = section; }
+
 }

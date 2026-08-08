@@ -20,9 +20,15 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
+
     @GetMapping
     public List<CategoryDTO> getCategories(
+            @RequestParam(required = false) String section,
             @RequestParam(required = false, defaultValue = "false") boolean includeInactive) {
+
+        if (section != null && !section.isBlank()) {
+            return categoryService.getAllActiveBySection(section);
+        }
         return includeInactive ? categoryService.getAll() : categoryService.getAllActive();
     }
 

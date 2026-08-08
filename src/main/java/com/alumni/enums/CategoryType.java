@@ -1,6 +1,7 @@
 package com.alumni.enums;
 
 public enum CategoryType {
+    // Recursos
     CV,
     LINKEDIN,
     INTERVIEW,
@@ -8,5 +9,12 @@ public enum CategoryType {
     ENGLISH,
     PORTFOLIO,
     NEGOTIATION,
-    PERSONAL_DEV
+    PERSONAL_DEV,
+
+    // Grabaciones
+    GUEST_TALKS,
+    WEBINARS,
+    WORKSHOPS,
+    TECH_TALKS,
+    INFO_SESSIONS
 }
