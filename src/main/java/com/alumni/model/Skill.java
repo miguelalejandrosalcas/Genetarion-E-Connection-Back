@@ -21,6 +21,11 @@ public class Skill {
     @ManyToMany(mappedBy = "skills")
     private List<LearningPath> learningPaths = new ArrayList<>();
 
+    @ElementCollection
+    @CollectionTable(name = "skill_links", joinColumns = @JoinColumn(name = "id_skills"))
+    @Column(name = "link", length = 2000)
+    private List<String> links = new ArrayList<>();
+
     public Skill() {}
 
     public Long getId() { return id; }
@@ -34,4 +39,7 @@ public class Skill {
 
     public List<LearningPath> getLearningPaths() { return learningPaths; }
     public void setLearningPaths(List<LearningPath> learningPaths) { this.learningPaths = learningPaths; }
+
+    public List<String> getLinks() { return links; }
+    public void setLinks(List<String> links) { this.links = links; }
 }

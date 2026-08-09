@@ -11,10 +11,10 @@ public class Story {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "published_by", nullable = false)
+    @JoinColumn(name = "published_by", nullable = true)
     private Administrator administrator;
 
     @Column(name = "alumni_name", nullable = false)
@@ -23,7 +23,16 @@ public class Story {
     @Column(nullable = false)
     private String program;
 
-    @Column(name = "photo_url", nullable = false)
+    @Column(name = "company")
+    private String company;
+
+    @Column(name = "role")
+    private String role;
+
+    @Column(name = "time_to_hire")
+    private String timeToHire;
+
+    @Column(name = "photo_url")
     private String photoUrl;
 
     @Column(columnDefinition = "TEXT")
@@ -32,14 +41,14 @@ public class Story {
     @Column(columnDefinition = "TEXT")
     private String trajectory;
 
-    @Column(name = "video_url", nullable = false)
+    @Column(name = "video_url")
     private String videoUrl;
 
     @Column(nullable = false)
-    private boolean featured;
+    private Boolean featured;
 
     @Column(nullable = false)
-    private boolean active;
+    private Boolean active;
 
     @Column(name = "publication_date", nullable = false)
     private LocalDate publicationDate;
@@ -49,11 +58,15 @@ public class Story {
     }
 
     public Story(Administrator administrator, String alumniName, String program,
+                 String company, String role, String timeToHire,
                  String photoUrl, String testimonial, String trajectory, String videoUrl,
-                 boolean featured, boolean active, LocalDate publicationDate) {
+                 Boolean featured, Boolean active, LocalDate publicationDate) {
         this.administrator = administrator;
         this.alumniName = alumniName;
         this.program = program;
+        this.company = company;
+        this.role = role;
+        this.timeToHire = timeToHire;
         this.photoUrl = photoUrl;
         this.testimonial = testimonial;
         this.trajectory = trajectory;
@@ -63,11 +76,11 @@ public class Story {
         this.publicationDate = publicationDate;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -93,6 +106,30 @@ public class Story {
 
     public void setProgram(String program) {
         this.program = program;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getTimeToHire() {
+        return timeToHire;
+    }
+
+    public void setTimeToHire(String timeToHire) {
+        this.timeToHire = timeToHire;
     }
 
     public String getPhotoUrl() {
@@ -127,19 +164,19 @@ public class Story {
         this.videoUrl = videoUrl;
     }
 
-    public boolean isFeatured() {
+    public Boolean isFeatured() {
         return featured;
     }
 
-    public void setFeatured(boolean featured) {
+    public void setFeatured(Boolean featured) {
         this.featured = featured;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 

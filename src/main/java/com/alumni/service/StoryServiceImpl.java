@@ -51,28 +51,27 @@ public class StoryServiceImpl implements StoryService {
 
     @Override
     public StoryDTO create(StoryDTO dto) {
-        if (dto.getAdministratorId() == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "administratorId es obligatorio");
-        }
         if (dto.getAlumniName() == null || dto.getAlumniName().isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre del alumni es obligatorio");
         }
         if (dto.getProgram() == null || dto.getProgram().isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El programa es obligatorio");
         }
-        if (dto.getPhotoUrl() == null || dto.getPhotoUrl().isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La foto es obligatoria");
-        }
-        if (dto.getVideoUrl() == null || dto.getVideoUrl().isBlank()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El video es obligatorio");
+        if (dto.getTestimonial() == null || dto.getTestimonial().isBlank()) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El testimonio es obligatorio");
         }
 
-        Administrator administrator = findAdministratorOrThrow(dto.getAdministratorId());
+        Administrator administrator = dto.getAdministratorId() != null
+                ? findAdministratorOrThrow(dto.getAdministratorId())
+                : null;
 
         Story story = new Story();
         story.setAdministrator(administrator);
         story.setAlumniName(dto.getAlumniName());
         story.setProgram(dto.getProgram());
+        story.setCompany(dto.getCompany());
+        story.setRole(dto.getRole());
+        story.setTimeToHire(dto.getTimeToHire());
         story.setPhotoUrl(dto.getPhotoUrl());
         story.setTestimonial(dto.getTestimonial());
         story.setTrajectory(dto.getTrajectory());
@@ -93,6 +92,9 @@ public class StoryServiceImpl implements StoryService {
         }
         if (dto.getAlumniName() != null) story.setAlumniName(dto.getAlumniName());
         if (dto.getProgram() != null) story.setProgram(dto.getProgram());
+        if (dto.getCompany() != null) story.setCompany(dto.getCompany());
+        if (dto.getRole() != null) story.setRole(dto.getRole());
+        if (dto.getTimeToHire() != null) story.setTimeToHire(dto.getTimeToHire());
         if (dto.getPhotoUrl() != null) story.setPhotoUrl(dto.getPhotoUrl());
         if (dto.getTestimonial() != null) story.setTestimonial(dto.getTestimonial());
         if (dto.getTrajectory() != null) story.setTrajectory(dto.getTrajectory());

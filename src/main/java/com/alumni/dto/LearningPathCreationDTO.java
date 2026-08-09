@@ -5,32 +5,17 @@ import java.util.List;
 public class LearningPathCreationDTO {
     private Long id;
     private String title;
-    private List<String> topics;
+    private List<TopicCreationDTO> topics;
 
     public LearningPathCreationDTO() {
     }
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public List<String> getTopics() {
-        return topics;
-    }
-
-    public void setTopics(List<String> topics) {
-        this.topics = topics;
-    }
+    public List<TopicCreationDTO> getTopics() { return topics; }
+    public void setTopics(List<TopicCreationDTO> topics) { this.topics = topics; }
 }

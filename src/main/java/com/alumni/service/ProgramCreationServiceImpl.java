@@ -2,6 +2,7 @@ package com.alumni.service;
 
 import com.alumni.dto.LearningPathCreationDTO;
 import com.alumni.dto.LearningPathDTO;
+import com.alumni.dto.TopicCreationDTO;
 import com.alumni.dto.ProgramCreationRequestDTO;
 import com.alumni.dto.ProgramCreationResponseDTO;
 import com.alumni.dto.ProgramDTO;
@@ -123,6 +124,7 @@ public class ProgramCreationServiceImpl implements ProgramCreationService {
 
         for (LearningPath existing : existingById.values()) {
             if (!keptIds.contains(existing.getId())) {
+                program.getLearningPaths().remove(existing);
                 learningPathRepository.delete(existing);
             }
         }
@@ -138,6 +140,16 @@ public class ProgramCreationServiceImpl implements ProgramCreationService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     "La ruta \"" + route.getTitle() + "\" necesita al menos un topic");
         }
+        for (TopicCreationDTO topic : route.getTopics()) {
+            if (topic.getTitle() == null || topic.getTitle().isBlank()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "Cada topic de la ruta \"" + route.getTitle() + "\" necesita un título");
+            }
+            if (topic.getLinks() == null || topic.getLinks().isEmpty()) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                        "El topic \"" + topic.getTitle() + "\" necesita al menos un link");
+            }
+        }
     }
 
     private ProgramCreationResponseDTO buildResponse(Program program, List<LearningPath> paths) {
@@ -147,17 +159,20 @@ public class ProgramCreationServiceImpl implements ProgramCreationService {
         return new ProgramCreationResponseDTO(ProgramDTO.fromEntity(program), pathDTOs);
     }
 
-    private List<Skill> resolveSkills(List<String> topics) {
+    private List<Skill> resolveSkills(List<TopicCreationDTO> topics) {
         List<Skill> skills = new ArrayList<>();
-        for (String topic : topics) {
-            String trimmed = topic.trim();
-            Skill skill = skillRepository.findBySkillNameIgnoreCase(trimmed)
+        for (TopicCreationDTO topic : topics) {
+            String trimmedTitle = topic.getTitle().trim();
+            Skill skill = skillRepository.findBySkillNameIgnoreCase(trimmedTitle)
                     .orElseGet(() -> {
                         Skill newSkill = new Skill();
-                        newSkill.setSkillName(trimmed);
+                        newSkill.setSkillName(trimmedTitle);
                         return skillRepository.save(newSkill);
                     });
-            skills.add(skill);
+            // Los links del topic siempre reflejan lo último enviado en el formulario,
+            // sea skill nueva o ya existente.
+            skill.setLinks(topic.getLinks());
+            skills.add(skillRepository.save(skill));
         }
         return skills;
     }
