@@ -5,28 +5,35 @@ import com.alumni.model.Story;
 import java.time.LocalDate;
 
 public class StoryDTO {
-    private long id;
+    private Long id;
     private Long administratorId;
     private String alumniName;
     private String program;
+    private String company;
+    private String role;
+    private String timeToHire;
     private String photoUrl;
     private String testimonial;
     private String trajectory;
     private String videoUrl;
-    private boolean featured;
-    private boolean active;
+    private Boolean featured;
+    private Boolean active;
     private LocalDate publicationDate;
 
     public StoryDTO() {
     }
 
-    public StoryDTO(long id, Long administratorId, String alumniName, String program,
+    public StoryDTO(Long id, Long administratorId, String alumniName, String program,
+                    String company, String role, String timeToHire,
                     String photoUrl, String testimonial, String trajectory, String videoUrl,
-                    boolean featured, boolean active, LocalDate publicationDate) {
+                    Boolean featured, Boolean active, LocalDate publicationDate) {
         this.id = id;
         this.administratorId = administratorId;
         this.alumniName = alumniName;
         this.program = program;
+        this.company = company;
+        this.role = role;
+        this.timeToHire = timeToHire;
         this.photoUrl = photoUrl;
         this.testimonial = testimonial;
         this.trajectory = trajectory;
@@ -36,11 +43,11 @@ public class StoryDTO {
         this.publicationDate = publicationDate;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -66,6 +73,30 @@ public class StoryDTO {
 
     public void setProgram(String program) {
         this.program = program;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getTimeToHire() {
+        return timeToHire;
+    }
+
+    public void setTimeToHire(String timeToHire) {
+        this.timeToHire = timeToHire;
     }
 
     public String getPhotoUrl() {
@@ -100,19 +131,19 @@ public class StoryDTO {
         this.videoUrl = videoUrl;
     }
 
-    public boolean isFeatured() {
+    public Boolean isFeatured() {
         return featured;
     }
 
-    public void setFeatured(boolean featured) {
+    public void setFeatured(Boolean featured) {
         this.featured = featured;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
     }
 
@@ -130,6 +161,9 @@ public class StoryDTO {
                 story.getAdministrator() != null ? story.getAdministrator().getId() : null,
                 story.getAlumniName(),
                 story.getProgram(),
+                story.getCompany(),
+                story.getRole(),
+                story.getTimeToHire(),
                 story.getPhotoUrl(),
                 story.getTestimonial(),
                 story.getTrajectory(),
@@ -144,6 +178,9 @@ public class StoryDTO {
         Story story = new Story();
         story.setAlumniName(this.alumniName);
         story.setProgram(this.program);
+        story.setCompany(this.company);
+        story.setRole(this.role);
+        story.setTimeToHire(this.timeToHire);
         story.setPhotoUrl(this.photoUrl);
         story.setTestimonial(this.testimonial);
         story.setTrajectory(this.trajectory);
