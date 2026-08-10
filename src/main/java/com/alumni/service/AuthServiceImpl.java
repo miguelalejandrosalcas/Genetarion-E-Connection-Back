@@ -3,9 +3,12 @@ package com.alumni.service;
 import com.alumni.dto.AuthResponseDTO;
 import com.alumni.dto.LoginRequestDTO;
 import com.alumni.dto.LoginResponseDTO;
+import com.alumni.dto.MentorProfileRequestDTO;
 import com.alumni.dto.RegisterRequestDTO;
 import com.alumni.model.Administrator;
+import com.alumni.model.MentorProfile;
 import com.alumni.repository.AdministratorRepository;
+import com.alumni.repository.MentorProfileRepository;
 import com.alumni.security.JwtService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,11 +21,16 @@ import java.time.LocalDateTime;
 public class AuthServiceImpl implements AuthService {
 
     private final AdministratorRepository administratorRepository;
+    private final MentorProfileRepository mentorProfileRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
 
-    public AuthServiceImpl(AdministratorRepository administratorRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
+    public AuthServiceImpl(AdministratorRepository administratorRepository,
+                           MentorProfileRepository mentorProfileRepository,
+                           PasswordEncoder passwordEncoder,
+                           JwtService jwtService) {
         this.administratorRepository = administratorRepository;
+        this.mentorProfileRepository = mentorProfileRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
     }
@@ -43,6 +51,21 @@ public class AuthServiceImpl implements AuthService {
         );
 
         Administrator saved = administratorRepository.save(administrator);
+
+        MentorProfileRequestDTO profileRequest = request.getProfile();
+        if (profileRequest != null) {
+            MentorProfile profile = new MentorProfile(
+                    saved,
+                    profileRequest.getProfileImageUrl(),
+                    profileRequest.getLinkedin(),
+                    profileRequest.getAbout(),
+                    profileRequest.getGenerationProgram(),
+                    profileRequest.getMentorAreas(),
+                    profileRequest.getSkills(),
+                    profileRequest.getMentorType()
+            );
+            mentorProfileRepository.save(profile);
+        }
 
         return new AuthResponseDTO(saved.getId(), saved.getName(), saved.getEmail(), saved.getRole());
     }

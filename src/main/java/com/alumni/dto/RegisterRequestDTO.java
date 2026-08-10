@@ -17,6 +17,8 @@ public class RegisterRequestDTO {
     @Size(min = 8, message = "La contraseña debe tener mínimo 8 caracteres")
     private String password;
 
+    private MentorProfileRequestDTO profile;
+
     public RegisterRequestDTO() {}
 
     public String getName() { return name; }
@@ -25,4 +27,6 @@ public class RegisterRequestDTO {
     public void setEmail(String email) { this.email = email; }
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+    public MentorProfileRequestDTO getProfile() { return profile; }
+    public void setProfile(MentorProfileRequestDTO profile) { this.profile = profile; }
 }
