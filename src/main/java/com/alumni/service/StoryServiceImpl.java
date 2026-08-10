@@ -2,6 +2,7 @@ package com.alumni.service;
 
 import com.alumni.dto.StoryDTO;
 import com.alumni.model.Administrator;
+import com.alumni.model.Resource;
 import com.alumni.model.Story;
 import com.alumni.repository.AdministratorRepository;
 import com.alumni.repository.StoryRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -108,7 +110,10 @@ public class StoryServiceImpl implements StoryService {
 
     @Override
     public void delete(Long id) {
-        storyRepository.delete(findEntityOrThrow(id));
+
+        Story story = findEntityOrThrow(id);
+        story.setActive(false);
+        storyRepository.save(story);
     }
 
     private Administrator findAdministratorOrThrow(Long administratorId) {
