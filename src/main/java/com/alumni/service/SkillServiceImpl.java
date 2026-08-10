@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,6 +40,7 @@ public class SkillServiceImpl implements SkillService {
         Skill skill = new Skill();
         skill.setSkillName(dto.getSkillName());
         skill.setDescription(dto.getDescription());
+        skill.setLinks(dto.getLinks() != null ? dto.getLinks() : new ArrayList<>());
         return SkillDTO.fromEntity(skillRepository.save(skill));
     }
 
@@ -47,6 +49,7 @@ public class SkillServiceImpl implements SkillService {
         Skill skill = findEntityOrThrow(id);
         if (dto.getSkillName() != null) skill.setSkillName(dto.getSkillName());
         if (dto.getDescription() != null) skill.setDescription(dto.getDescription());
+        if (dto.getLinks() != null) skill.setLinks(dto.getLinks());
         return SkillDTO.fromEntity(skillRepository.save(skill));
     }
 

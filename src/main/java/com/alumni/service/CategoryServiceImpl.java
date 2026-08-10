@@ -1,6 +1,7 @@
 package com.alumni.service;
 
 import com.alumni.dto.CategoryDTO;
+import com.alumni.enums.Section;
 import com.alumni.model.Category;
 import com.alumni.repository.CategoryRepository;
 import org.springframework.http.HttpStatus;
@@ -43,9 +44,13 @@ public class CategoryServiceImpl implements CategoryService {
         if (dto.getCategoryType() == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El nombre es obligatorio");
         }
+        if (dto.getSection() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La sección es obligatoria ('library' o 'recording')");
+        }
         Category category = new Category();
         category.setCategoryType(dto.getCategoryType());
         category.setDescription(dto.getDescription());
+        category.setSection(dto.getSection());
         category.setActive(true);
         return CategoryDTO.fromEntity(categoryRepository.save(category));
     }
@@ -56,6 +61,7 @@ public class CategoryServiceImpl implements CategoryService {
         if (dto.getCategoryType() != null) category.setCategoryType(dto.getCategoryType());
         if (dto.getDescription() != null) category.setDescription(dto.getDescription());
         if (dto.getActive() != null) category.setActive(dto.getActive());
+        if (dto.getSection() != null) category.setSection(dto.getSection());
         return CategoryDTO.fromEntity(categoryRepository.save(category));
     }
 
@@ -68,5 +74,19 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
                         "No existe una categoría con id " + id));
+    }
+
+    @Override
+    public List<CategoryDTO> getAllActiveBySection(String sectionParam) {
+        Section section;
+        try {
+            section = Section.valueOf(sectionParam.toLowerCase());
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Sección inválida: '" + sectionParam + "' (usa 'library' o 'recording')");
+        }
+        return categoryRepository.findBySectionAndActiveTrue(section).stream()
+                .map(CategoryDTO::fromEntity)
+                .collect(Collectors.toList());
     }
 }

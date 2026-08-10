@@ -49,12 +49,18 @@ public class JobBoardServiceImpl implements JobBoardService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El logo es obligatorio");
         }
 
+        if (dto.getCategory() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "La categoría es obligatoria (global, local o remota)");
+        }
+
         JobBoard jobBoard = new JobBoard();
         jobBoard.setName(dto.getName());
         jobBoard.setUrl(dto.getUrl());
         jobBoard.setDescription(dto.getDescription());
         jobBoard.setLogoUrl(dto.getLogoUrl());
         jobBoard.setActive(true);
+        jobBoard.setCategory(dto.getCategory());
 
         return JobBoardDTO.fromEntity(jobBoardRepository.save(jobBoard));
     }
@@ -67,7 +73,8 @@ public class JobBoardServiceImpl implements JobBoardService {
         if (dto.getUrl() != null) jobBoard.setUrl(dto.getUrl());
         if (dto.getDescription() != null) jobBoard.setDescription(dto.getDescription());
         if (dto.getLogoUrl() != null) jobBoard.setLogoUrl(dto.getLogoUrl());
-        jobBoard.setActive(dto.getActive());
+        if (dto.getCategory() != null) jobBoard.setCategory(dto.getCategory());
+        if (dto.getActive() != null) jobBoard.setActive(dto.getActive());
 
         return JobBoardDTO.fromEntity(jobBoardRepository.save(jobBoard));
     }

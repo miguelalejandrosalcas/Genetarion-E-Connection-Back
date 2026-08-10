@@ -10,6 +10,7 @@ import com.alumni.repository.AdministratorRepository;
 import com.alumni.repository.CategoryRepository;
 import com.alumni.repository.ResourceRepository;
 import com.alumni.repository.ResourceTypeRepository;
+import com.alumni.repository.InteractionRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -26,15 +27,17 @@ public class ResourceServiceImpl implements ResourceService {
     private final CategoryRepository categoryRepository;
     private final ResourceTypeRepository resourceTypeRepository;
     private final AdministratorRepository administratorRepository;
+    private final InteractionRepository interactionRepository;
 
     public ResourceServiceImpl(ResourceRepository resourceRepository,
                                CategoryRepository categoryRepository,
                                ResourceTypeRepository resourceTypeRepository,
-                               AdministratorRepository administratorRepository) {
+                               AdministratorRepository administratorRepository,InteractionRepository interactionRepository) {
         this.resourceRepository = resourceRepository;
         this.categoryRepository = categoryRepository;
         this.resourceTypeRepository = resourceTypeRepository;
         this.administratorRepository = administratorRepository;
+        this.interactionRepository = interactionRepository;
     }
 
     @Override
@@ -65,7 +68,12 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public List<ResourceDTO> getFeatured() {
-        return toDtoList(resourceRepository.findByFeaturedTrueAndActiveTrue());
+        List<Long> topIds = interactionRepository.findTopResourceIdsByInteractions();
+        return topIds.stream()
+                .limit(3)
+                .map(this::findEntityOrThrow)
+                .map(ResourceDTO::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @Override
