@@ -32,7 +32,7 @@ public class Story {
     @Column(name = "time_to_hire")
     private String timeToHire;
 
-    @Column(name = "photo_url")
+    @Column(name = "photo_url",columnDefinition = "TEXT")
     private String photoUrl;
 
     @Column(columnDefinition = "TEXT")
@@ -41,7 +41,7 @@ public class Story {
     @Column(columnDefinition = "TEXT")
     private String trajectory;
 
-    @Column(name = "video_url")
+    @Column(name = "video_url", columnDefinition = "TEXT")
     private String videoUrl;
 
     @Column(nullable = false)

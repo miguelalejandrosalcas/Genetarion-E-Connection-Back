@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface JobBoardRepository extends JpaRepository<JobBoard, Long> {
     List<JobBoard> findByActiveTrue();
+    Long countByActiveTrue();
 }
