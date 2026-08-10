@@ -15,7 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
                         "http://localhost:5502",
                         "http://127.0.0.1:5501",
                         "http://localhost:5501",
-                        "https://ec-c094f9e61f034e029869900306b99827.ecs.us-east-1.on.aws")
+                        "aurora-serverless-mysql-generation-instance-1.cf48okcygkvy.us-east-1.rds.amazonaws.com")
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                 .allowedHeaders("*");
     }
