@@ -41,7 +41,7 @@ public class StoryServiceImpl implements StoryService {
 
     @Override
     public List<StoryDTO> getRecent() {
-        return toDtoList(storyRepository.findTop4ByActiveTrueOrderByPublicationDateDesc());
+        return toDtoList(storyRepository.findTop2ByActiveTrueOrderByPublicationDateDesc());
     }
 
     @Override
