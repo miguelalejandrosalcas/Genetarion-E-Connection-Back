@@ -141,7 +141,10 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public void delete(long id) {
-        resourceRepository.delete(findEntityOrThrow(id));
+        Resource resource = findEntityOrThrow(id);
+        resource.setActive(false);
+        resource.setUpdatedAt(LocalDateTime.now());
+        resourceRepository.save(resource);
     }
 
     @Override
