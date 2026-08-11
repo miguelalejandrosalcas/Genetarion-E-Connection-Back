@@ -42,7 +42,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(HttpMethod.PATCH, "/api/resources/*/view", "/api/resources/*/download").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/interactions").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/stories").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(AbstractHttpConfigurer::disable)
