@@ -30,6 +30,70 @@ CREATE TABLE administrators (
 
 
 
+-- ══════════════════════════════════════════════════════════════
+-- Perfil de mentor (1:1 con administrators)
+-- Tablas agregadas: no existían en el script original, pero sí
+-- en el diagrama entidad-relación y en las entidades JPA
+-- (MentorProfile.java). Antes se creaban solo por
+-- spring.jpa.hibernate.ddl-auto=update, lo cual es frágil.
+-- ══════════════════════════════════════════════════════════════
+
+CREATE TABLE mentor_profiles (
+
+                                 id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+                                 administrator_id BIGINT NOT NULL UNIQUE,
+
+                                 profile_image_url VARCHAR(255),
+
+                                 linkedin VARCHAR(255),
+
+                                 about TEXT,
+
+                                 generation_program VARCHAR(255),
+
+                                 FOREIGN KEY (administrator_id) REFERENCES administrators(id) ON DELETE CASCADE
+
+);
+
+
+
+CREATE TABLE mentor_profile_areas (
+
+                                      mentor_profile_id BIGINT NOT NULL,
+
+                                      area VARCHAR(255) NOT NULL,
+
+                                      FOREIGN KEY (mentor_profile_id) REFERENCES mentor_profiles(id) ON DELETE CASCADE
+
+);
+
+
+
+CREATE TABLE mentor_profile_skills (
+
+                                       mentor_profile_id BIGINT NOT NULL,
+
+                                       skill VARCHAR(255) NOT NULL,
+
+                                       FOREIGN KEY (mentor_profile_id) REFERENCES mentor_profiles(id) ON DELETE CASCADE
+
+);
+
+
+
+CREATE TABLE mentor_profile_types (
+
+                                      mentor_profile_id BIGINT NOT NULL,
+
+                                      mentor_type VARCHAR(255) NOT NULL,
+
+                                      FOREIGN KEY (mentor_profile_id) REFERENCES mentor_profiles(id) ON DELETE CASCADE
+
+);
+
+
+
 CREATE TABLE categories (
 
                             id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -266,5 +330,5 @@ CREATE TABLE uploaded_files (
 
 ALTER TABLE categories
     ADD COLUMN category_type ENUM('CV','LINKEDIN','INTERVIEW','NETWORKING','ENGLISH','PORTFOLIO','NEGOTIATION','PERSONAL_DEV') NOT NULL;
-    
+
 ALTER TABLE categories DROP COLUMN name;
