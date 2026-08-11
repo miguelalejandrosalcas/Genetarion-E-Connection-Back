@@ -102,8 +102,8 @@ public class StoryServiceImpl implements StoryService {
         if (dto.getTrajectory() != null) story.setTrajectory(dto.getTrajectory());
         if (dto.getVideoUrl() != null) story.setVideoUrl(dto.getVideoUrl());
         if (dto.getPublicationDate() != null) story.setPublicationDate(dto.getPublicationDate());
-        story.setFeatured(dto.isFeatured());
-        story.setActive(dto.isActive());
+        if (dto.isFeatured() != null) story.setFeatured(dto.isFeatured());
+        if (dto.isActive() != null) story.setActive(dto.isActive());
 
         return StoryDTO.fromEntity(storyRepository.save(story));
     }
