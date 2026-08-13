@@ -26,7 +26,7 @@ public class Resource {
     @JoinColumn(name = "created_by")
     private Administrator administrator;
 
-    @Column(name = "title", nullable = false, length = 200)
+    @Column(name = "title", nullable = false, length = 80)
     private String title;
 
     @Column(columnDefinition = "TEXT")

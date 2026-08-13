@@ -105,7 +105,7 @@ public class ResourceServiceImpl implements ResourceService {
         resource.setActive(true);
         resource.setViews(0);
         resource.setDownloads(0);
-        resource.setThumbnailUrl(dto.getThumbnailUrl());
+        resource.setFeatured(dto.isFeatured());
         resource.setFileName(dto.getFileName());
         resource.setFileSize(dto.getFileSize());
         resource.setCreatedAt(LocalDateTime.now());

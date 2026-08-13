@@ -4,22 +4,40 @@ import com.alumni.enums.Section;
 import com.alumni.model.Resource;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ResourceDTO {
     private Long id;
+    @NotNull(message = "La categoría es obligatoria")
     private Long categoryId;
+
+    @NotNull(message = "El tipo de recurso es obligatorio")
     private Long resourceTypeId;
+
     private Long administratorId;
+
+    @NotBlank(message = "El título es obligatorio")
+    @Size(max = 80, message = "El título no puede superar los 80 caracteres")
     private String title;
+
+    @Size(max = 150, message = "La descripción no puede superar los 150 caracteres")
     private String description;
+
+    @NotNull(message = "La sección es obligatoria")
     private Section section;
+
+    @NotBlank(message = "La URL es obligatoria")
+    @Size(max = 1000, message = "La URL no puede superar los 1000 caracteres")
     private String url;
     private Integer durationMinutes;
     private LocalDate publicationDate;
-    private Boolean featured;
-    private Boolean active;
+    private Boolean featured = false;
+    private Boolean active = true;
     private Integer views;
     private Integer downloads;
     private String thumbnailUrl;

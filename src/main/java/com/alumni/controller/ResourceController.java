@@ -1,12 +1,11 @@
 package com.alumni.controller;
 
-import com.alumni.dto.CreateResourceRequest;
 import com.alumni.dto.ResourceDTO;
-import com.alumni.model.Resource;
 import com.alumni.service.ResourceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -50,12 +49,12 @@ public class ResourceController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResourceDTO createResource(@RequestBody ResourceDTO dto) {
+    public ResourceDTO createResource(@Valid @RequestBody ResourceDTO dto) {
         return resourceService.create(dto);
     }
 
     @PutMapping("/{id}")
-    public ResourceDTO updateResource(@PathVariable long id, @RequestBody ResourceDTO dto) {
+    public ResourceDTO updateResource(@PathVariable long id, @Valid @RequestBody ResourceDTO dto) {
         return resourceService.update(id, dto);
     }
 
